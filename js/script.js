@@ -397,7 +397,7 @@ function initLanguageToggle() {
         'project5-desc': 'Générateur de paroles utilisant des modèles Bi-LSTM et d\'encodage pour prédire et générer des paroles de chanson à partir d\'une séquence d\'entrée initiale avec la perte d\'entropie croisée catégorielle.',
         'project6-title': 'Détection de fausses nouvelles',
         'project6-desc': 'Système d\'apprentissage automatique utilisant la régression logistique et les approches bayésiennes naïves pour identifier et signaler les articles potentiellement faux.',
-        'view-project': 'Voir le Projet',
+        'view-project': 'Voir',
         'resume-title': 'CV',
         'resume-description': 'Téléchargez mon CV pour en savoir plus sur mon expérience et mes compétences.',
         'resume-button': 'Télécharger CV',
