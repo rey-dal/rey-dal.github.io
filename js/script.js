@@ -370,7 +370,7 @@ function initLanguageToggle() {
         'project6-desc': 'Machine learning system using logistic regression and naive bayes approaches to identify and flag potentially false news articles.',
         'view-project': 'View',
         'resume-title': 'Resume',
-        'resume-description': 'Download my resume to learn more about my experience and skills.',
+        'resume-description': 'Check out my resume for more details on my experience and skills.',
         'resume-button': 'Download Resume',
         'footer-text': 'All rights reserved'
     };
@@ -399,7 +399,7 @@ function initLanguageToggle() {
         'project6-desc': 'Système d\'apprentissage automatique utilisant la régression logistique et les approches bayésiennes naïves pour identifier et signaler les articles potentiellement faux.',
         'view-project': 'Voir',
         'resume-title': 'CV',
-        'resume-description': 'Téléchargez mon CV pour en savoir plus sur mon expérience et mes compétences.',
+        'resume-description': 'Consultez mon CV pour en savoir plus sur mon expérience et mes compétences.',
         'resume-button': 'Télécharger CV',
         'footer-text': 'Tous droits réservés'
     };

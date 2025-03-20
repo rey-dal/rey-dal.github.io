@@ -33,6 +33,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
+    font-size: 1rem;
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
@@ -318,6 +319,22 @@ nav ul li a:hover:after {
     transform: translateY(-3px);
 }
 
+/* Dark theme overrides */
+[data-theme="dark"] #resume .resume-button {
+    background-color: #000000 !important; /* Force black with !important */
+    color: #ffffff; /* White text */
+}
+
+[data-theme="dark"] #resume .resume-button:hover {
+    background-color: #000000 !important; /* Stay black */
+    color: #49e4a3 !important; /* Force green text on hover */
+}
+
+#resume p {
+    padding-top: 20px; /* Adjust value as needed */
+    /* or */
+    margin-top: 20px; /* Adjust value as needed */
+}
 /* Footer */
 footer {
     padding: 3rem 0;
