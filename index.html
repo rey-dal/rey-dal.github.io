@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rey-dal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <nav>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#resume">Resume</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="language-toggle">
+                    <button class="language-btn active" data-lang="en">EN</button>
+                    <button class="language-btn" data-lang="fr">FR</button>
+                </div>
+                <div class="theme-toggle">
+                    <button class="theme-btn active" data-theme="light"><i class="fas fa-sun"></i></button>
+                    <button class="theme-btn" data-theme="dark"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <section id="hero" class="animate-section">
+            <div class="hero-content">
+                <h1 class="animate-item">Hi! I'm <span class="highlight" id="typed-text"></span></h1>
+                <p class="subtitle animate-item">I'm an <span id="typed-role"></span></p>
+                <p class="description animate-item">
+                    I specialize in Natural Language Processing, and build solutions that understand and generate human language.
+                </p>
+                <div class="social-links animate-item">
+                    <a href="https://github.com/rey-dal" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/reyhan-dalaman-8b28a6243/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:reydalaman@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="animate-section">
+            <h2 class="animate-item">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Pink AI</h3>
+                        <p>PINK AI is an interface that allows users to experiment with language models by adjusting LLM parameters for a customized experience. Built with Streamlit, it enables fine-tuning settings like temperature, top-k, and top-p to control response behavior.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/pink_ai" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Compreve</h3>
+                        <p>COMPREVE is a Django-based web application designed for analyzing Twitch chat messages. It provides tools for uploading, searching, filtering, and analyzing chat data.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/projet_compreve" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Image Classification</h3>
+                        <p>This project implements a deep learning model using PyTorch to classify images through transfer learning. By leveraging pre-trained neural networks, it efficiently classifies 102 flower species with optimized training time and improved accuracy.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/img_classification" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Toxic Comment Classification</h3>
+                        <p>Project utilizing DistilBERT, GRU, and LSTM models to detect and classify toxic comments in online discussions, with evaluation through error analysis and visualizations.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/toxic_comment_classification" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Lyrics Generator</h3>
+                        <p>Lyrics generator using Bi-LSTM and embedding models to predict and generate song lyrics based on an initial input sequence with categorical cross-entropy loss.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/lyrics_generator" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card animate-item">
+                    <div class="project-content">
+                        <h3>Fake News Detection</h3>
+                        <p>Machine learning system using logistic regression and naive bayes approaches to identify and flag potentially false news articles.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/rey-dal/fake_news_detection" class="project-link" target="_blank">View Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resume" class="animate-section">
+            <h2 class="animate-item">Resume</h2>
+            <p class="animate-item">Download my resume to learn more about my experience and skills.</p>
+            <a href="https://raw.githubusercontent.com/rey-dal/rey-dal.github.io/main/cv_rd_eng%2Bfr.pdf" class="resume-button animate-item">Download Resume</a>
+        </section>
+
+        <footer>
+            <p>&copy; <span id="current-year"></span> Reyhan Dalaman. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
