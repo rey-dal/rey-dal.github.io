@@ -7,6 +7,7 @@
 - Sections for introduction, projects, and resume
 - Social media links
 - French and English language support
+- Dark and light mode
 
 ## Getting Started
 
