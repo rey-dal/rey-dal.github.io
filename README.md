@@ -6,6 +6,7 @@
 - Responsive layout that works on all devices
 - Sections for introduction, projects, and resume
 - Social media links
+- French and English language support
 
 ## Getting Started
 
