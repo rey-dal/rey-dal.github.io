@@ -1,7 +1,7 @@
 /* Base Styles */
 :root {
     --primary-color: #49e4a3;
-    --secondary-color: #49e4a3;
+    --secondary-color: #000000;
     --background-color: #f8fafc;
     --text-color: #1e293b;
     --light-gray: #e2e8f0;
@@ -81,7 +81,7 @@ p {
 }
 
 a {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }

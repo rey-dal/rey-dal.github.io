@@ -1,6 +1,12 @@
 // Initialize GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
+// Global variables for typed instances
+let typedTextInstance = null;
+let typedRoleInstance = null;
+let currentLanguage = 'en'; // Track current language
+let isTypingInitialized = false; // Track if typing is initialized
+
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations
@@ -33,28 +39,107 @@ function initHeroAnimations() {
     });
     
     // Initialize typing animation for name
-    new Typed('#typed-text', {
-        strings: ['Reyhan Dalaman'],
-        typeSpeed: 100,
-        backSpeed: 50,
-        startDelay: 1000,
-        showCursor: true,
-        cursorChar: '|',
-        loop: false,    
-    });
+    setTimeout(() => {
+        initTypedAnimations();
+    }, 500);
+}
+
+// Function to initialize or reinitialize typed animations
+function initTypedAnimations() {
+    // Prevent multiple initializations
+    if (isTypingInitialized) {
+        console.log("Typing already initialized, not reinitializing");
+        return;
+    }
     
-    new Typed('#typed-role', {
-        strings: [
-            'NLP Engineer'
-        ],
-        typeSpeed: 80,
-        backSpeed: 40,
-        startDelay: 1000,
-        backDelay: 1500,
-        loop: false,
-        showCursor: true,
-        cursorChar: ''
-    });
+    isTypingInitialized = true;
+    console.log("Initializing typing animations");
+    
+    // First completely destroy previous instances if they exist
+    if (typedTextInstance) {
+        try {
+            typedTextInstance.destroy();
+        } catch (e) {
+            console.error("Error destroying typedTextInstance:", e);
+        }
+        typedTextInstance = null;
+    }
+    
+    if (typedRoleInstance) {
+        try {
+            typedRoleInstance.destroy();
+        } catch (e) {
+            console.error("Error destroying typedRoleInstance:", e);
+        }
+        typedRoleInstance = null;
+    }
+    
+    // Reference to elements we need to animate
+    const typedTextElement = document.getElementById('typed-text');
+    const typedRoleElement = document.getElementById('typed-role');
+    
+    // Safety check - if elements don't exist, don't try to initialize
+    if (!typedTextElement || !typedRoleElement) {
+        console.error("Typed elements not found in DOM");
+        isTypingInitialized = false;
+        return;
+    }
+    
+    // Clear any existing content
+    typedTextElement.innerHTML = '';
+    typedRoleElement.innerHTML = '';
+    
+    // Set name string based on language
+    const nameString = 'Reyhan Dalaman';
+    
+    // Set role string based on language
+    let roleString = currentLanguage === 'fr' ? 'Ingénieure TAL/NLP' : 'NLP Engineer';
+    
+    // Wait a moment for DOM to stabilize
+    setTimeout(() => {
+        // Initialize typing animation for name with no delay
+        try {
+            typedTextInstance = new Typed('#typed-text', {
+                strings: [nameString],
+                typeSpeed: 100,
+                backSpeed: 50,
+                startDelay: 0, // No delay
+                showCursor: true,
+                cursorChar: '|',
+                loop: false,
+                loopCount: 0,
+                backDelay: 1500,
+                smartBackspace: false
+            });
+            
+            // Initialize typing animation for role after name is complete
+            setTimeout(() => {
+                try {
+                    typedRoleInstance = new Typed('#typed-role', {
+                        strings: [roleString],
+                        typeSpeed: 80,
+                        backSpeed: 40,
+                        startDelay: 0, // No delay
+                        backDelay: 1500,
+                        loop: false,
+                        loopCount: 0,
+                        showCursor: true,
+                        cursorChar: '',
+                        smartBackspace: false
+                    });
+                } catch (e) {
+                    console.error("Error initializing role typing:", e);
+                }
+            }, 0);
+        } catch (e) {
+            console.error("Error initializing name typing:", e);
+        }
+        
+        // Allow re-initialization after animations complete
+        setTimeout(() => {
+            isTypingInitialized = false;
+        }, 0);
+    }, 0);
 }
 
 // Scroll animations for sections and elements
@@ -259,6 +344,7 @@ function initNavHighlighting() {
 // Initialize language toggle functionality
 function initLanguageToggle() {
     const languageBtns = document.querySelectorAll('.language-btn');
+    let isChangingLanguage = false; // Flag to prevent multiple rapid changes
     
     // English translations
     const enTranslations = {
@@ -296,7 +382,7 @@ function initLanguageToggle() {
         'nav-resume': 'CV',
         'hero-title': 'Bonjour ! <br> Je suis',
         'hero-subtitle': '',
-        'hero-role': 'Ingénieur NLP',
+        'hero-role': 'Ingénieure TAL/NLP',
         'hero-description': 'Je me spécialise dans le traitement du langage naturel et construis des solutions qui comprennent et génèrent le langage humain.',
         'projects-title': 'Projets',
         'project1-title': 'Pink AI',
@@ -320,14 +406,24 @@ function initLanguageToggle() {
     
     languageBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all buttons
-            languageBtns.forEach(b => b.classList.remove('active'));
-            
-            // Add active class to clicked button
-            btn.classList.add('active');
-            
             // Get language
             const lang = btn.getAttribute('data-lang');
+            
+            // Don't do anything if it's already the current language
+            if (lang === currentLanguage || isChangingLanguage) {
+                return;
+            }
+            
+            // Set flag to prevent multiple rapid changes
+            isChangingLanguage = true;
+            
+            // Update current language
+            currentLanguage = lang;
+            console.log("Changing language to:", lang);
+            
+            // Update active button display
+            languageBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             
             // Update content based on language
             if (lang === 'en') {
@@ -339,30 +435,27 @@ function initLanguageToggle() {
     });
     
     function updateLanguage(translations) {
+        console.log("Updating language content");
+        
+        // Clear any existing typing animation timeouts
+        clearTimeout(window.typingTimeout);
+        clearTimeout(window.roleTypingTimeout);
+        
         // Update navigation
         document.querySelector('nav ul li:nth-child(1) a').textContent = translations['nav-home'];
         document.querySelector('nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
         document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-resume'];
         
-        // Update hero section
+        // Update hero section - completely recreate the elements to avoid stale references
         const heroTitle = document.querySelector('#hero h1');
         if (heroTitle) {
-            const typedText = heroTitle.querySelector('#typed-text');
+            // Create the content without typed animation spans first
             heroTitle.innerHTML = translations['hero-title'] + ' <span class="highlight" id="typed-text"></span>';
-            // Re-add the typed text element
-            if (typedText) {
-                heroTitle.querySelector('#typed-text').outerHTML = typedText.outerHTML;
-            }
         }
         
         const subtitle = document.querySelector('#hero .subtitle');
         if (subtitle) {
-            const typedRole = subtitle.querySelector('#typed-role');
             subtitle.innerHTML = translations['hero-subtitle'] + ' <span id="typed-role"></span>';
-            // Re-add the typed role element
-            if (typedRole) {
-                subtitle.querySelector('#typed-role').outerHTML = typedRole.outerHTML;
-            }
         }
         
         const description = document.querySelector('#hero .description');
@@ -408,6 +501,37 @@ function initLanguageToggle() {
         
         // Update footer
         document.querySelector('footer p').innerHTML = '&copy; <span id="current-year">' + new Date().getFullYear() + '</span> Reyhan Dalaman. ' + translations['footer-text'] + '.';
+        
+        // Wait a bit for the DOM to update, then reinitialize typing
+        window.typingTimeout = setTimeout(() => {
+            // Ensure all previous animations are destroyed
+            if (typedTextInstance) {
+                try {
+                    typedTextInstance.destroy();
+                    typedTextInstance = null;
+                } catch (e) {
+                    console.error("Error destroying text typing:", e);
+                }
+            }
+            
+            if (typedRoleInstance) {
+                try {
+                    typedRoleInstance.destroy();
+                    typedRoleInstance = null;
+                } catch (e) {
+                    console.error("Error destroying role typing:", e);
+                }
+            }
+            
+            // Reset initialization flag
+            isTypingInitialized = false;
+            
+            // Restart the typing animation
+            initTypedAnimations();
+            
+            // Reset language change flag
+            isChangingLanguage = false;
+        }, 1000);
     }
 }
 
