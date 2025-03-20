@@ -368,7 +368,7 @@ function initLanguageToggle() {
         'project5-desc': 'Lyrics generator using Bi-LSTM and embedding models to predict and generate song lyrics based on an initial input sequence with categorical cross-entropy loss.',
         'project6-title': 'Fake News Detection',
         'project6-desc': 'Machine learning system using logistic regression and naive bayes approaches to identify and flag potentially false news articles.',
-        'view-project': 'View Project',
+        'view-project': 'View',
         'resume-title': 'Resume',
         'resume-description': 'Download my resume to learn more about my experience and skills.',
         'resume-button': 'Download Resume',
