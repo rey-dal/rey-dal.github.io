@@ -330,6 +330,12 @@ nav ul li a:hover:after {
     color: #49e4a3 !important; /* Force green text on hover */
 }
 
+[data-theme="light"] #resume .resume-button:hover,
+#resume .resume-button:hover {
+    background-color: #3bc48a; /* A slightly darker shade of the green */
+    color: white;
+    transform: translateY(-3px);
+}
 #resume p {
     padding-top: 20px; /* Adjust value as needed */
     /* or */
