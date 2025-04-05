@@ -5,7 +5,8 @@ gsap.registerPlugin(ScrollTrigger);
 let typedTextInstance = null;
 let typedRoleInstance = null;
 let currentLanguage = 'en'; // Track current language
-let isTypingInitialized = false; // Track if typing is initialized
+let isTypingInProgress = false; // Track if typing animation is in progress
+let canSwitchLanguage = true; // Flag to control language switching
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -40,22 +41,86 @@ function initHeroAnimations() {
     
     // Initialize typing animation for name
     setTimeout(() => {
-        initTypedAnimations();
+        startTypingAnimation();
     }, 500);
 }
 
-// Function to initialize or reinitialize typed animations
-function initTypedAnimations() {
-    // Prevent multiple initializations
-    if (isTypingInitialized) {
-        console.log("Typing already initialized, not reinitializing");
+// Function to handle typing animations - IMPROVED to show name and role simultaneously
+function startTypingAnimation() {
+    if (isTypingInProgress) {
+        return; // Don't start new typing if already in progress
+    }
+    
+    isTypingInProgress = true;
+    canSwitchLanguage = false; // Disable language switching during typing
+    
+    // Clean up previous instances first
+    cleanupTypingInstances();
+    
+    // Get elements
+    const typedTextElement = document.getElementById('typed-text');
+    const typedRoleElement = document.getElementById('typed-role');
+    
+    // Safety check
+    if (!typedTextElement || !typedRoleElement) {
+        console.error("Typed elements not found in DOM");
+        isTypingInProgress = false;
+        canSwitchLanguage = true;
         return;
     }
     
-    isTypingInitialized = true;
-    console.log("Initializing typing animations");
+    // Clear existing content
+    typedTextElement.innerHTML = '';
+    typedRoleElement.innerHTML = '';
     
-    // First completely destroy previous instances if they exist
+    // Name is the same in both languages
+    const nameString = 'Reyhan Dalaman';
+    
+    // Role is different based on language
+    const roleString = currentLanguage === 'fr' ? 'Ingénieure TAL/NLP' : 'NLP Engineer';
+    
+    // Start name and role typing simultaneously
+    typedTextInstance = new Typed('#typed-text', {
+        strings: [nameString],
+        typeSpeed: 70,
+        backSpeed: 50,
+        startDelay: 0,
+        showCursor: true,
+        cursorChar: '|',
+        loop: false,
+        onComplete: function() {
+            // Re-enable language switching after name completes
+            // But keep isTypingInProgress until both are done
+            canSwitchLanguage = true;
+        }
+    });
+    
+    // Start role typing at the same time
+    typedRoleInstance = new Typed('#typed-role', {
+        strings: [roleString],
+        typeSpeed: 70,
+        backSpeed: 40,
+        startDelay: 0, // Start at the same time
+        showCursor: true,
+        cursorChar: '',
+        loop: false,
+        onComplete: function() {
+            // Both animations are complete
+            isTypingInProgress = false;
+        }
+    });
+    
+    // Make description animate-in right after typing starts
+    const description = document.querySelector('#hero .description');
+    if (description) {
+        // Add animation class
+        description.classList.add('fade-in');
+    }
+}
+
+// Clean up typing instances - IMPROVED to better handle interruptions
+function cleanupTypingInstances() {
+    // Destroy text instance if it exists
     if (typedTextInstance) {
         try {
             typedTextInstance.destroy();
@@ -65,6 +130,7 @@ function initTypedAnimations() {
         typedTextInstance = null;
     }
     
+    // Destroy role instance if it exists
     if (typedRoleInstance) {
         try {
             typedRoleInstance.destroy();
@@ -74,72 +140,9 @@ function initTypedAnimations() {
         typedRoleInstance = null;
     }
     
-    // Reference to elements we need to animate
-    const typedTextElement = document.getElementById('typed-text');
-    const typedRoleElement = document.getElementById('typed-role');
-    
-    // Safety check - if elements don't exist, don't try to initialize
-    if (!typedTextElement || !typedRoleElement) {
-        console.error("Typed elements not found in DOM");
-        isTypingInitialized = false;
-        return;
-    }
-    
-    // Clear any existing content
-    typedTextElement.innerHTML = '';
-    typedRoleElement.innerHTML = '';
-    
-    // Set name string based on language
-    const nameString = 'Reyhan Dalaman';
-    
-    // Set role string based on language
-    let roleString = currentLanguage === 'fr' ? 'Ingénieure TAL/NLP' : 'NLP Engineer';
-    
-    // Wait a moment for DOM to stabilize
-    setTimeout(() => {
-        // Initialize typing animation for name with no delay
-        try {
-            typedTextInstance = new Typed('#typed-text', {
-                strings: [nameString],
-                typeSpeed: 100,
-                backSpeed: 50,
-                startDelay: 0, // No delay
-                showCursor: true,
-                cursorChar: '|',
-                loop: false,
-                loopCount: 0,
-                backDelay: 1500,
-                smartBackspace: false
-            });
-            
-            // Initialize typing animation for role after name is complete
-            setTimeout(() => {
-                try {
-                    typedRoleInstance = new Typed('#typed-role', {
-                        strings: [roleString],
-                        typeSpeed: 80,
-                        backSpeed: 40,
-                        startDelay: 0, // No delay
-                        backDelay: 1500,
-                        loop: false,
-                        loopCount: 0,
-                        showCursor: true,
-                        cursorChar: '',
-                        smartBackspace: false
-                    });
-                } catch (e) {
-                    console.error("Error initializing role typing:", e);
-                }
-            }, 0);
-        } catch (e) {
-            console.error("Error initializing name typing:", e);
-        }
-        
-        // Allow re-initialization after animations complete
-        setTimeout(() => {
-            isTypingInitialized = false;
-        }, 0);
-    }, 0);
+    // Reset typing status to ensure language switching works
+    isTypingInProgress = false;
+    canSwitchLanguage = true;
 }
 
 // Scroll animations for sections and elements
@@ -165,12 +168,16 @@ function initScrollAnimations() {
                 if (!section.classList.contains('visible')) {
                     section.classList.add('visible');
                     
+                    // Handle special case for projects section - slower animation
+                    const isProjectsSection = section.id === 'projects';
+                    const transitionDelay = isProjectsSection ? 400 : 200;
+                    
                     // Animate child items with staggered delay
                     const items = section.querySelectorAll('.animate-item');
                     items.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.add('visible');
-                        }, 200 + (index * 100));
+                        }, transitionDelay + (index * (isProjectsSection ? 150 : 100)));
                     });
                 }
             } else {
@@ -192,10 +199,10 @@ function initScrollAnimations() {
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
-                y: -10,
-                scale: 1.02,
+                y: -5,
+                scale: 1,
                 boxShadow: '0 15px 30px rgba(0, 0, 0, 0.1)',
-                duration: 0.5,
+                duration: 0.1,
                 ease: 'back.out(1.7)'
             });
             
@@ -213,7 +220,7 @@ function initScrollAnimations() {
                 y: 0,
                 scale: 1,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                duration: 0.5,
+                duration: 0.1,
                 ease: 'power2.out'
             });
         });
@@ -227,8 +234,8 @@ function initScrollAnimations() {
             gsap.to(resumeButton, {
                 y: -5,
                 boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#49e4a3',
-                duration: 0.5,
+                backgroundColor: '#ffb3c1',
+                duration: 0,
                 ease: 'back.out(1.7)'
             });
         });
@@ -237,8 +244,8 @@ function initScrollAnimations() {
             gsap.to(resumeButton, {
                 y: 0,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                backgroundColor: '#49e4a3',
-                duration: 0.5,
+                backgroundColor: '#ffb3c1',
+                duration: 0.0,
                 ease: 'power2.out'
             });
         });
@@ -275,7 +282,7 @@ function initScrollAnimations() {
             gsap.to(link, {
                 y: -5,
                 scale: 1.2,
-                color: '#49e4a3',
+                color: '#ffb3c1',
                 duration: 0.5,
                 ease: 'back.out(1.7)'
             });
@@ -341,10 +348,9 @@ function initNavHighlighting() {
     });
 }
 
-// Initialize language toggle functionality
+// Initialize language toggle functionality - IMPROVED to handle immediate language switching
 function initLanguageToggle() {
     const languageBtns = document.querySelectorAll('.language-btn');
-    let isChangingLanguage = false; // Flag to prevent multiple rapid changes
     
     // English translations
     const enTranslations = {
@@ -352,7 +358,6 @@ function initLanguageToggle() {
         'nav-projects': 'Projects',
         'nav-resume': 'Resume',
         'hero-title': 'Hi! I\'m',
-        'hero-subtitle': 'I\'m an',
         'hero-role': 'NLP Engineer',
         'hero-description': 'I specialize in Natural Language Processing, and build solutions that understand and generate human language.',
         'projects-title': 'Projects',
@@ -380,8 +385,7 @@ function initLanguageToggle() {
         'nav-home': 'Accueil',
         'nav-projects': 'Projets',
         'nav-resume': 'CV',
-        'hero-title': 'Bonjour ! <br> Je suis',
-        'hero-subtitle': '',
+        'hero-title': 'Bonjour ! Je suis',
         'hero-role': 'Ingénieure TAL/NLP',
         'hero-description': 'Je me spécialise dans le traitement du langage naturel et construis des solutions qui comprennent et génèrent le langage humain.',
         'projects-title': 'Projets',
@@ -409,89 +413,93 @@ function initLanguageToggle() {
             // Get language
             const lang = btn.getAttribute('data-lang');
             
-            // Don't do anything if it's already the current language
-            if (lang === currentLanguage || isChangingLanguage) {
-                return;
-            }
+            // Force language switch even if typing is in progress
+            // This is the key change - we now immediately allow language switching
             
-            // Set flag to prevent multiple rapid changes
-            isChangingLanguage = true;
+            // Clean up typing instances to stop any current animations
+            cleanupTypingInstances();
             
             // Update current language
             currentLanguage = lang;
-            console.log("Changing language to:", lang);
             
             // Update active button display
-            languageBtns.forEach(b => b.classList.remove('active'));
+            languageBtns.forEach(b => {
+                b.classList.remove('active');
+                b.classList.remove('pending');
+            });
             btn.classList.add('active');
             
             // Update content based on language
-            if (lang === 'en') {
-                updateLanguage(enTranslations);
-            } else if (lang === 'fr') {
-                updateLanguage(frTranslations);
-            }
+            const translations = lang === 'en' ? enTranslations : frTranslations;
+            updateLanguageContent(translations);
         });
     });
     
-    function updateLanguage(translations) {
-        console.log("Updating language content");
+    // Remove the interval check for pending language changes since we now switch immediately
+    
+    function updateLanguageContent(translations) {
+        // Clean up any existing typing instances
+        cleanupTypingInstances();
         
-        // Clear any existing typing animation timeouts
-        clearTimeout(window.typingTimeout);
-        clearTimeout(window.roleTypingTimeout);
-        
-        // Update navigation
+        // Update navigation texts
         document.querySelector('nav ul li:nth-child(1) a').textContent = translations['nav-home'];
         document.querySelector('nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
         document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-resume'];
         
-        // Update hero section - completely recreate the elements to avoid stale references
+        // Prepare hero section for new typing
         const heroTitle = document.querySelector('#hero h1');
         if (heroTitle) {
-            // Create the content without typed animation spans first
             heroTitle.innerHTML = translations['hero-title'] + ' <span class="highlight" id="typed-text"></span>';
         }
         
+        // Set up subtitle element - ensure it has fixed width to prevent text jumping
         const subtitle = document.querySelector('#hero .subtitle');
         if (subtitle) {
-            subtitle.innerHTML = translations['hero-subtitle'] + ' <span id="typed-role"></span>';
+            // Set minimum width to prevent content shifting
+            subtitle.style.minWidth = currentLanguage === 'fr' ? '250px' : '150px'; 
+            subtitle.innerHTML = '<span id="typed-role"></span>';
         }
         
+        // Update hero description with animation
         const description = document.querySelector('#hero .description');
         if (description) {
+            // First remove old animation classes
+            description.classList.remove('fade-in');
+            
+            // Force a reflow (repaint) before adding the class again
+            void description.offsetWidth;
+            
+            // Set content
             description.textContent = translations['hero-description'];
+            
+            // Apply consistent layout and add animation
+            description.style.maxWidth = '600px';
+            description.style.display = 'block';
+            description.classList.add('fade-in');
         }
         
-        // Update projects section
-        document.querySelector('#projects h2').textContent = translations['projects-title'];
+        // Update projects section with smooth animation
+        const projectsTitle = document.querySelector('#projects h2');
+        if (projectsTitle) {
+            gsap.to(projectsTitle, {
+                opacity: 0, 
+                duration: 0.3,
+                onComplete: () => {
+                    projectsTitle.textContent = translations['projects-title'];
+                    gsap.to(projectsTitle, {opacity: 1, duration: 0.3});
+                }
+            });
+        }
         
         // Update project cards
         const projectCards = document.querySelectorAll('.project-card');
         if (projectCards.length >= 6) {
-            projectCards[0].querySelector('h3').textContent = translations['project1-title'];
-            projectCards[0].querySelector('p').textContent = translations['project1-desc'];
-            projectCards[0].querySelector('.project-link').textContent = translations['view-project'];
-            
-            projectCards[1].querySelector('h3').textContent = translations['project2-title'];
-            projectCards[1].querySelector('p').textContent = translations['project2-desc'];
-            projectCards[1].querySelector('.project-link').textContent = translations['view-project'];
-            
-            projectCards[2].querySelector('h3').textContent = translations['project3-title'];
-            projectCards[2].querySelector('p').textContent = translations['project3-desc'];
-            projectCards[2].querySelector('.project-link').textContent = translations['view-project'];
-            
-            projectCards[3].querySelector('h3').textContent = translations['project4-title'];
-            projectCards[3].querySelector('p').textContent = translations['project4-desc'];
-            projectCards[3].querySelector('.project-link').textContent = translations['view-project'];
-            
-            projectCards[4].querySelector('h3').textContent = translations['project5-title'];
-            projectCards[4].querySelector('p').textContent = translations['project5-desc'];
-            projectCards[4].querySelector('.project-link').textContent = translations['view-project'];
-            
-            projectCards[5].querySelector('h3').textContent = translations['project6-title'];
-            projectCards[5].querySelector('p').textContent = translations['project6-desc'];
-            projectCards[5].querySelector('.project-link').textContent = translations['view-project'];
+            updateProjectCard(projectCards[0], 'project1', translations);
+            updateProjectCard(projectCards[1], 'project2', translations);
+            updateProjectCard(projectCards[2], 'project3', translations);
+            updateProjectCard(projectCards[3], 'project4', translations);
+            updateProjectCard(projectCards[4], 'project5', translations);
+            updateProjectCard(projectCards[5], 'project6', translations);
         }
         
         // Update resume section
@@ -502,36 +510,18 @@ function initLanguageToggle() {
         // Update footer
         document.querySelector('footer p').innerHTML = '&copy; <span id="current-year">' + new Date().getFullYear() + '</span> Reyhan Dalaman. ' + translations['footer-text'] + '.';
         
-        // Wait a bit for the DOM to update, then reinitialize typing
-        window.typingTimeout = setTimeout(() => {
-            // Ensure all previous animations are destroyed
-            if (typedTextInstance) {
-                try {
-                    typedTextInstance.destroy();
-                    typedTextInstance = null;
-                } catch (e) {
-                    console.error("Error destroying text typing:", e);
-                }
-            }
-            
-            if (typedRoleInstance) {
-                try {
-                    typedRoleInstance.destroy();
-                    typedRoleInstance = null;
-                } catch (e) {
-                    console.error("Error destroying role typing:", e);
-                }
-            }
-            
-            // Reset initialization flag
-            isTypingInitialized = false;
-            
-            // Restart the typing animation
-            initTypedAnimations();
-            
-            // Reset language change flag
-            isChangingLanguage = false;
-        }, 1000);
+        // Start typing animation immediately
+        setTimeout(() => {
+            startTypingAnimation();
+        }, 100);
+    }
+    
+    // Helper function to update project cards
+    function updateProjectCard(card, prefix, translations) {
+        // Directly update the content without animation
+        card.querySelector('h3').textContent = translations[prefix + '-title'];
+        card.querySelector('p').textContent = translations[prefix + '-desc'];
+        card.querySelector('.project-link').textContent = translations['view-project'];
     }
 }
 

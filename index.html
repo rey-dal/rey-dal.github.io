@@ -12,6 +12,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        /* Additional styles to prevent layout shift */
+        #hero h1 {
+            min-height: 40px;
+        }
+        .subtitle {
+            min-height: 30px;
+        }
+        .description {
+            min-height: 60px;
+        }
+        .project-content {
+            min-height: 200px;
+        }
+        .project-content h3 {
+            min-height: 30px;
+        }
+        .project-content p {
+            min-height: 120px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -39,8 +60,11 @@
 
         <section id="hero" class="animate-section">
             <div class="hero-content">
+                <div class="profile-photo">
+                    <img src="images/pp.png" alt="pp" class="animate-item">
+                </div>
                 <h1 class="animate-item">Hi! I'm <span class="highlight" id="typed-text"></span></h1>
-                <p class="subtitle animate-item">I'm an <span id="typed-role"></span></p>
+                <p class="subtitle animate-item"><span id="typed-role"></span></p>
                 <p class="description animate-item">
                     I specialize in Natural Language Processing, and build solutions that understand and generate human language.
                 </p>
