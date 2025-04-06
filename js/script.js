@@ -77,13 +77,14 @@ function startTypingAnimation() {
     const nameString = 'Reyhan Dalaman';
     
     // Role is different based on language
-    const roleString = currentLanguage === 'fr' ? 'Ingénieure TAL/NLP' : 'NLP Engineer';
+    // Fixed: Changed French version to use "IA" instead of "AI"
+    const roleString = currentLanguage === 'fr' ? 'Data Science | NLP / TAL | Machine Learning | IA ' : 'Data Science | NLP | Machine Learning | AI ';
     
     // Start name and role typing simultaneously
     typedTextInstance = new Typed('#typed-text', {
         strings: [nameString],
         typeSpeed: 70,
-        backSpeed: 50,
+        backSpeed: 100,
         startDelay: 0,
         showCursor: true,
         cursorChar: '|',
@@ -195,24 +196,32 @@ function initScrollAnimations() {
     
     // Project cards hover effect enhancement
     const projectCards = document.querySelectorAll('.project-card');
-    
+
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
             gsap.to(card, {
                 y: -5,
                 scale: 1,
                 boxShadow: '0 15px 30px rgba(0, 0, 0, 0.1)',
-                duration: 0.1,
+                duration: 0.2,
                 ease: 'back.out(1.7)'
             });
             
             // Animate the line at the top
-            const line = card.querySelector('::before') || card;
-            gsap.to(line, {
-                scaleX: 1,
+            gsap.to(card, {
+                '--before-scale': 1,
                 duration: 0.5,
                 ease: 'power2.out'
             });
+            
+            // Highlight the title
+            const title = card.querySelector('h3');
+            if (title) {
+                gsap.to(title, {
+                    color: 'var(--primary-color)',
+                    duration: 0.3
+                });
+            }
         });
         
         card.addEventListener('mouseleave', () => {
@@ -220,11 +229,33 @@ function initScrollAnimations() {
                 y: 0,
                 scale: 1,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                duration: 0.1,
+                duration: 0.2,
                 ease: 'power2.out'
             });
+            
+            // Animate the line back
+            gsap.to(card, {
+                '--before-scale': 0,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+            
+            // Return title to original color
+            const title = card.querySelector('h3');
+            if (title) {
+                gsap.to(title, {
+                    color: 'var(--text-color)',
+                    duration: 0.3
+                });
+            }
         });
     });
+    
+    // Update the language toggle functionality to handle cards without buttons
+    function updateProjectCard(card, prefix, translations) {
+        card.querySelector('h3').textContent = translations[prefix + '-title'];
+        card.querySelector('p').textContent = translations[prefix + '-desc'];
+    }
     
     // Resume button animation enhancement
     const resumeButton = document.querySelector('.resume-button');
@@ -358,7 +389,7 @@ function initLanguageToggle() {
         'nav-projects': 'Projects',
         'nav-resume': 'Resume',
         'hero-title': 'Hi! I\'m',
-        'hero-role': 'NLP Engineer',
+        'hero-role': 'Data Science | NLP | Machine Learning | AI ',
         'hero-description': 'I specialize in Natural Language Processing, and build solutions that understand and generate human language.',
         'projects-title': 'Projects',
         'project1-title': 'Pink AI',
@@ -386,13 +417,13 @@ function initLanguageToggle() {
         'footer-text': 'All rights reserved'
     };
     
-    // French translations
+    // French translations - FIXED: Changed AI to IA for French version
     const frTranslations = {
         'nav-home': 'Accueil',
         'nav-projects': 'Projets',
         'nav-resume': 'CV',
         'hero-title': 'Bonjour ! Je suis',
-        'hero-role': 'Ingénieure TAL/NLP',
+        'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA ',
         'hero-description': 'Je me spécialise dans le traitement du langage naturel et construis des solutions qui comprennent et génèrent le langage humain.',
         'projects-title': 'Projets',
         'project1-title': 'Pink AI',
@@ -468,7 +499,7 @@ function initLanguageToggle() {
         const subtitle = document.querySelector('#hero .subtitle');
         if (subtitle) {
             // Set minimum width to prevent content shifting
-            subtitle.style.minWidth = currentLanguage === 'fr' ? '250px' : '150px'; 
+            subtitle.style.minWidth = currentLanguage === 'fr' ? '300px' : '300px'; 
             subtitle.innerHTML = '<span id="typed-role"></span>';
         }
         
@@ -536,7 +567,12 @@ function initLanguageToggle() {
         // Directly update the content without animation
         card.querySelector('h3').textContent = translations[prefix + '-title'];
         card.querySelector('p').textContent = translations[prefix + '-desc'];
-        card.querySelector('.project-link').textContent = translations['view-project'];
+        
+        // Find and update the project link if it exists
+        const projectLink = card.querySelector('.project-link');
+        if (projectLink) {
+            projectLink.textContent = translations['view-project'];
+        }
     }
 }
 
