@@ -353,10 +353,57 @@ nav ul li a:hover:after {
     transform: translateX(-50%);
     width: 4px;
     background-color: var(--light-gray);
-    height: 0;
+    height: 0; 
     top: 0;
     bottom: 0;
-    transition: height 1.5s ease;
+    transition: height 3s ease-out;
+    overflow: hidden;
+    margin-top: 4rem; 
+}
+
+.timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-color), var(--highlight-color));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 5s ease-out; /* Slower transition for the gradient */
+    z-index: 1;
+}
+
+.timeline-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    animation: timeline-shine 3s ease-out forwards;
+    animation-delay: 1s;
+    animation-play-state: paused;
+    z-index: 2;
+}
+
+.timeline.visible .timeline-line::before {
+    transform: scaleY(1);
+}
+
+.timeline.visible .timeline-line::after {
+    animation-play-state: running;
+}
+
+@keyframes timeline-shine {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 200%;
+    }
 }
 
 .timeline.visible .timeline-line {
@@ -365,19 +412,35 @@ nav ul li a:hover:after {
 
 .timeline-item {
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; 
     opacity: 0;
     transform: translateY(30px);
     transition: all var(--animation-duration) ease;
+    transition-delay: calc(var(--animation-delay-increment) * var(--item-index, 0));
 }
 
 .timeline-item.visible {
     opacity: 1;
     transform: translateY(0);
+    transition-delay: calc(0.2s * var(--item-index, 0)); /* Faster delay between items */
+    transition-duration: 0.6s; /* Faster animation duration */
 }
 
 .timeline-item:last-child {
     margin-bottom: 0;
+}
+
+/* Create a mask to hide the timeline line after the last dot */
+.timeline-item:last-child::after {
+    content: '';
+    position: absolute;
+    width: 6px; /* Slightly wider than the line */
+    height: 1000px; /* Large enough to cover any remaining space */
+    background-color: var(--background-color); /* Same as background to hide the line */
+    top: 2.2rem; /* Same as the dot position */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; /* Higher than the timeline line */
 }
 
 .timeline-item:nth-child(odd) .timeline-content {
@@ -400,12 +463,21 @@ nav ul li a:hover:after {
     border-radius: 10px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .timeline-content:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item.visible .timeline-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(0.25s * var(--item-index, 0) + 0.2s); /* Faster delay */
+    transition-duration: 0.7s; /* Faster animation duration */
 }
 
 .timeline-content h3 {
@@ -417,7 +489,7 @@ nav ul li a:hover:after {
 .timeline-content h4 {
     margin-bottom: 0.3rem;
     font-size: 1rem;
-    color: var(--primary-color);
+    color: var(--s);
     font-weight: 600;
 }
 
@@ -434,17 +506,30 @@ nav ul li a:hover:after {
     height: 20px;
     background-color: var(--primary-color);
     border-radius: 50%;
-    top: 1.5rem;
+    top: 2.2rem; /* Moved lower from 1.5rem */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.5);
     z-index: 2;
     opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition-delay: calc(0.3s * var(--item-index, 0));
 }
 
 .timeline-item.visible .timeline-dot {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+    transition-delay: calc(0.3s * var(--item-index, 0) + 0.2s);
+}
+
+/* Special positioning for the first timeline dot */
+.timeline-item:first-of-type .timeline-dot {
+    top: 8rem; /* Position the first dot much lower */
+}
+
+/* Add more space before the first timeline item */
+.timeline-item:first-of-type {
+    margin-top: 10rem; /* Significantly increased space at the top of the first item */
+    padding-top: 3rem; /* Add padding to push the content down */
 }
 
 /* Responsive Design for Timeline */
@@ -522,19 +607,29 @@ nav ul li a:hover:after {
     transform: translateY(-3px);
 }
 #resume p {
-    padding-top: 20px; /* Adjust value as needed */
+    padding-top: 20px; 
     /* or */
-    margin-top: 20px; /* Adjust value as needed */
+    margin-top: 20px; 
 }
 /* Footer */
 footer {
     padding: 3rem 0;
     text-align: center;
     color: var(--dark-gray);
-    border-top: 1px solid var(--light-gray);
+    position: relative;
     margin-top: 3rem;
     font-size: 0.6rem;
+}
 
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1500px;
+    height: 1px;
+    background-color: var(--light-gray);
 }
 
 /* Animation Styles */

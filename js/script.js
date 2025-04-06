@@ -169,21 +169,163 @@ function initScrollAnimations() {
                 if (!section.classList.contains('visible')) {
                     section.classList.add('visible');
                     
+                    // Handle special case for timeline section
+                    if (section.id === 'experience') {
+                        // First make the timeline line visible
+                        const timelineLine = section.querySelector('.timeline-line');
+                        if (timelineLine) {
+                            timelineLine.style.height = '0';
+                            setTimeout(() => {
+                                // Make the timeline visible first
+                                const timeline = section.querySelector('.timeline');
+                                if (timeline) {
+                                    timeline.classList.add('visible');
+                                }
+                                // Then very slowly increase the height
+                                setTimeout(() => {
+                                    // Start with just 20% height
+                                    timelineLine.style.height = '20%';
+                                    
+                                    // Then gradually increase to 100% over time
+                                    setTimeout(() => {
+                                        timelineLine.style.height = '60%';
+                                        setTimeout(() => {
+                                            timelineLine.style.height = '100%';
+                                        }, 2000);
+                                    }, 2000);
+                                }, 800);
+                            }, 400);
+                        }
+                        
+                        // Then animate each timeline item with a staggered delay
+                        const timelineItems = section.querySelectorAll('.timeline-item');
+                        timelineItems.forEach((item, index) => {
+                            // Set a custom property for CSS transition-delay
+                            item.style.setProperty('--item-index', index);
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, 1000 + (index * 300)); // Faster appearance for boxes
+                        });
+                        
+                        // Add scroll event listener specifically for timeline items
+                        const handleTimelineScroll = () => {
+                            // Check if we've scrolled to the bottom of the section
+                            const sectionBottom = section.getBoundingClientRect().bottom;
+                            const windowHeight = window.innerHeight;
+                            const scrolledToBottom = sectionBottom <= windowHeight * 1.2;
+                            
+                            // If scrolled to bottom of section, make all items visible and complete the line
+                            if (scrolledToBottom) {
+                                // Make all timeline items visible
+                                timelineItems.forEach(item => {
+                                    item.classList.add('visible');
+                                });
+                                
+                                // Complete the timeline line
+                                const timelineLine = section.querySelector('.timeline-line');
+                                if (timelineLine) {
+                                    timelineLine.style.height = '100%';
+                                    
+                                    // Add visible class to timeline to trigger the gradient animation
+                                    const timeline = section.querySelector('.timeline');
+                                    if (timeline) {
+                                        timeline.classList.add('visible');
+                                    }
+                                }
+                                return; // Skip the rest of the function
+                            }
+                            
+                            // Normal behavior for when not at the bottom
+                            timelineItems.forEach((item, index) => {
+                                const itemTop = item.getBoundingClientRect().top;
+                                const itemBottom = item.getBoundingClientRect().bottom;
+                                
+                                // Check if timeline item is in viewport
+                                if (itemTop < windowHeight * 0.8 && itemBottom > 0) {
+                                    item.classList.add('visible');
+                                } else if (itemTop > windowHeight) {
+                                    item.classList.remove('visible');
+                                }
+                            });
+                            
+                            // Update timeline line height based on visible items
+                            const timelineLine = section.querySelector('.timeline-line');
+                            if (timelineLine) {
+                                const visibleItems = Array.from(timelineItems).filter(item => 
+                                    item.classList.contains('visible')).length;
+                                    
+                                if (visibleItems > 0) {
+                                    // Calculate height percentage based on visible items
+                                    // Even slower progression - only go to 80% when all items are visible
+                                    const heightPercentage = Math.min(100, (visibleItems / timelineItems.length) * 80);
+                                    timelineLine.style.height = `${heightPercentage}%`;
+                                    
+                                    // Add visible class to timeline to trigger the gradient animation
+                                    const timeline = section.querySelector('.timeline');
+                                    if (timeline) {
+                                        timeline.classList.add('visible');
+                                    }
+                                } else {
+                                    timelineLine.style.height = '0';
+                                    
+                                    // Remove visible class from timeline
+                                    const timeline = section.querySelector('.timeline');
+                                    if (timeline) {
+                                        timeline.classList.remove('visible');
+                                    }
+                                }
+                            }
+                        };
+                        
+                        // Add scroll event listener
+                        window.addEventListener('scroll', handleTimelineScroll);
+                        // Call once to initialize
+                        handleTimelineScroll();
+                        
+                        // Other animate items in the section
+                        const otherItems = section.querySelectorAll('.animate-item:not(.timeline-item)');
+                        otherItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, 200 + (index * 100));
+                        });
+                    } 
                     // Handle special case for projects section - slower animation
-                    const isProjectsSection = section.id === 'projects';
-                    const transitionDelay = isProjectsSection ? 400 : 200;
-                    
-                    // Animate child items with staggered delay
-                    const items = section.querySelectorAll('.animate-item');
-                    items.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.add('visible');
-                        }, transitionDelay + (index * (isProjectsSection ? 150 : 100)));
-                    });
+                    else if (section.id === 'projects') {
+                        const transitionDelay = 400;
+                        
+                        // Animate child items with staggered delay
+                        const items = section.querySelectorAll('.animate-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, transitionDelay + (index * 150));
+                        });
+                    }
+                    // Default animation for other sections
+                    else {
+                        const transitionDelay = 200;
+                        
+                        // Animate child items with staggered delay
+                        const items = section.querySelectorAll('.animate-item');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, transitionDelay + (index * 100));
+                        });
+                    }
                 }
             } else {
                 // Remove visible class if section is not in viewport
                 section.classList.remove('visible');
+                
+                // Reset timeline line height if it's the experience section
+                if (section.id === 'experience') {
+                    const timelineLine = section.querySelector('.timeline-line');
+                    if (timelineLine) {
+                        timelineLine.style.height = '0';
+                    }
+                }
                 
                 // Remove visible class from child items
                 const items = section.querySelectorAll('.animate-item');
@@ -387,6 +529,7 @@ function initLanguageToggle() {
     const enTranslations = {
         'nav-home': 'Home',
         'nav-projects': 'Projects',
+        'nav-experience': 'Experience',
         'nav-resume': 'Resume',
         'hero-title': 'Hi! I\'m',
         'hero-role': 'Data Science | NLP | Machine Learning | AI ',
@@ -410,17 +553,17 @@ function initLanguageToggle() {
         'project8-desc': 'Multinomial-Gaussian-Bernoulli Naive Bayes, XGBoost, Random Forest, and Decision Tree models are used to distinguish between spam and legitimate messages, with methods to handle class imbalance and improve performance.',
         'project9-title': 'Sentiment analysis',
         'project9-desc': 'Multiple machine learning models, including RNN, TFIDF, and MLP, are trained and compared for sentiment analysis on both films and tweets.',
-        'view-project': 'View',
         'resume-title': 'Resume',
-        'resume-description': 'Check out my resume for more details on my experience and skills.',
-        'resume-button': 'Download Resume',
+        'resume-description': 'Download my resume here.',
+        'resume-button': 'Download',
         'footer-text': 'All rights reserved'
     };
     
-    // French translations - FIXED: Changed AI to IA for French version
+    // French translations 
     const frTranslations = {
         'nav-home': 'Accueil',
         'nav-projects': 'Projets',
+        'nav-experience': 'Expérience',
         'nav-resume': 'CV',
         'hero-title': 'Bonjour ! Je suis',
         'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA ',
@@ -444,11 +587,30 @@ function initLanguageToggle() {
         'project8-desc': 'Le Multinomial-Gaussian-Bernoulli Naive Bayes, XGBoost, Random Forest et Decision Tree sont utilisés pour distinguer les messages spam des messages légitimes, avec des méthodes pour gérer le déséquilibre des classes et améliorer la performance.',
         'project9-title': 'Analyse de sentiment',
         'project9-desc': 'Plusieurs modèles d\'apprentissage automatique, dont RNN, TFIDF et MLP, sont entraînés et comparés pour l\'analyse de sentiment sur les films et les tweets.',
-        'view-project': 'Voir',
         'resume-title': 'CV',
-        'resume-description': 'Consultez mon CV pour en savoir plus sur mon expérience et mes compétences.',
-        'resume-button': 'Télécharger CV',
-        'footer-text': 'Tous droits réservés'
+        'resume-description': 'Cliquez pour télécharger mon CV.',
+        'resume-button': 'Télécharger',
+        'footer-text': 'Tous droits réservés',
+        // Experience section translations
+        'exp-master2-title': 'Master 2, Industries de la Langue',
+        'exp-master2-school': 'Université Grenoble Alpes, France',
+        'exp-master2-desc': 'Formation en traitement automatique des langues (TAL), apprentissage automatique et programmation.',
+        'exp-master2-date': 'Septembre 2024 – Présent',
+        'exp-master1-title': 'Master 1, Technologies des Langues',
+        'exp-master1-school': 'Université de Turin, Italie',
+        'exp-master1-date': 'Septembre 2023 – Juillet 2024',
+        'exp-nlp-title': 'Ingénieure TAL / NLP',
+        'exp-nlp-company': 'LORIA & Steerway, Nancy, France',
+        'exp-nlp-desc': 'Optimisation des modèles de langue d\'un assistant de codage via la quantification et le pruning.',
+        'exp-nlp-date': 'Mars 2025 – Présent',
+        'exp-projet-title': 'Projet Pro',
+        'exp-projet-company': 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France',
+        'exp-projet-desc': 'Développement d\'un site web d\'exploration de corpus lié aux violences en ligne sur Twitch',
+        'exp-projet-date': 'Décembre 2024 – Mars 2025',
+        'exp-ai-title': 'Intelligence Artificielle & Machine Learning Team',
+        'exp-ai-company': 'DiaspUra, Paris, France',
+        'exp-ai-desc': 'Conception, développement et gestion d\'une solution d\'IA conversationnelle.',
+        'exp-ai-date': 'Janvier 2024 – Juin 2024'
     };
     
     languageBtns.forEach(btn => {
@@ -477,9 +639,7 @@ function initLanguageToggle() {
             updateLanguageContent(translations);
         });
     });
-    
-    // Remove the interval check for pending language changes since we now switch immediately
-    
+        
     function updateLanguageContent(translations) {
         // Clean up any existing typing instances
         cleanupTypingInstances();
@@ -487,7 +647,8 @@ function initLanguageToggle() {
         // Update navigation texts
         document.querySelector('nav ul li:nth-child(1) a').textContent = translations['nav-home'];
         document.querySelector('nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
-        document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-resume'];
+        document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-experience'];
+        document.querySelector('nav ul li:nth-child(4) a').textContent = translations['nav-resume'];
         
         // Prepare hero section for new typing
         const heroTitle = document.querySelector('#hero h1');
@@ -521,6 +682,11 @@ function initLanguageToggle() {
             description.classList.add('fade-in');
         }
         
+        // Restart typing animation after language switch
+        setTimeout(() => {
+            startTypingAnimation();
+        }, 100);
+        
         // Update projects section with smooth animation
         const projectsTitle = document.querySelector('#projects h2');
         if (projectsTitle) {
@@ -547,7 +713,56 @@ function initLanguageToggle() {
             updateProjectCard(projectCards[7], 'project8', translations);
             updateProjectCard(projectCards[8], 'project9', translations);
         }
+        // Update experience section
+        const experienceTitle = document.querySelector('#experience h2');
+        if (experienceTitle) {
+            experienceTitle.textContent = translations['nav-experience'];
+        }
         
+        // Update experience timeline items
+        const timelineItems = document.querySelectorAll('#experience .timeline-item');
+        if (timelineItems.length >= 5) {
+            // Master 2
+            updateExperienceItem(timelineItems[0], {
+                title: currentLanguage === 'en' ? 'Master 2, Linguistic Data Sciences' : translations['exp-master2-title'],
+                school: currentLanguage === 'en' ? 'Grenoble Alpes University, France' : translations['exp-master2-school'],
+                desc: currentLanguage === 'en' ? 'Advanced studies in natural language processing (NLP), machine learning, and programming.' : translations['exp-master2-desc'],
+                date: currentLanguage === 'en' ? 'September 2024 - Current' : translations['exp-master2-date']
+            });
+            
+            // Master 1
+            updateExperienceItem(timelineItems[1], {
+                title: currentLanguage === 'en' ? 'Master 1, Language Technologies' : translations['exp-master1-title'],
+                school: currentLanguage === 'en' ? 'University of Turin, Italy' : translations['exp-master1-school'],
+                desc: currentLanguage === 'en' ? 'Formation in natural language processing (NLP), machine learning, and programming.' : translations['exp-master1-desc'],
+                date: currentLanguage === 'en' ? 'September 2023 - July 2024' : translations['exp-master1-date']
+            });
+            
+            // NLP Engineer
+            updateExperienceItem(timelineItems[2], {
+                title: currentLanguage === 'en' ? 'NLP Engineer' : translations['exp-nlp-title'],
+                school: currentLanguage === 'en' ? 'LORIA & Steerway, Nancy, France' : translations['exp-nlp-company'],
+                desc: currentLanguage === 'en' ? 'Optimizing a code assistant\'s language models through quantization and pruning.' : translations['exp-nlp-desc'],
+                date: currentLanguage === 'en' ? 'March 2025 - Current' : translations['exp-nlp-date']
+            });
+            
+            // Projet Pro
+            updateExperienceItem(timelineItems[3], {
+                title: currentLanguage === 'en' ? 'Projet Pro' : translations['exp-projet-title'],
+                school: currentLanguage === 'en' ? 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France' : translations['exp-projet-company'],
+                desc: currentLanguage === 'en' ? 'Development of a corpus exploration website related to online violence on Twitch.' : translations['exp-projet-desc'],
+                date: currentLanguage === 'en' ? 'December 2024 - March 2025' : translations['exp-projet-date']
+            });
+            
+            // AI & ML Team
+            updateExperienceItem(timelineItems[4], {
+                title: currentLanguage === 'en' ? 'Artificial Intelligence & Machine Learning Team' : translations['exp-ai-title'],
+                school: currentLanguage === 'en' ? 'DiaspUra, Paris, France' : translations['exp-ai-company'],
+                desc: currentLanguage === 'en' ? 'Design, development, and management of a conversational AI solution.' : translations['exp-ai-desc'],
+                date: currentLanguage === 'en' ? 'January 2024 - June 2024' : translations['exp-ai-date']
+            });
+        }
+
         // Update resume section
         document.querySelector('#resume h2').textContent = translations['resume-title'];
         document.querySelector('#resume p').textContent = translations['resume-description'];
@@ -573,6 +788,21 @@ function initLanguageToggle() {
         if (projectLink) {
             projectLink.textContent = translations['view-project'];
         }
+    }
+    
+    // Helper function to update experience timeline items
+    function updateExperienceItem(item, content) {
+        if (!item) return;
+        
+        const titleEl = item.querySelector('h3');
+        const schoolEl = item.querySelector('h4');
+        const descEl = item.querySelector('p:not(.timeline-date)');
+        const dateEl = item.querySelector('.timeline-date');
+        
+        if (titleEl) titleEl.textContent = content.title;
+        if (schoolEl) schoolEl.textContent = content.school;
+        if (descEl) descEl.textContent = content.desc;
+        if (dateEl) dateEl.textContent = content.date;
     }
 }
 
