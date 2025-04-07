@@ -9,6 +9,41 @@ let isTypingInProgress = false; // Track if typing animation is in progress
 let canSwitchLanguage = true; // Flag to control language switching
 
 // Wait for the DOM to be fully loaded
+// Scroll to top functionality
+function initScrollToTop() {
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    const scrollThreshold = 300; // Show button after scrolling 300px
+    let isVisible = false;
+
+    window.addEventListener('scroll', () => {
+        const shouldBeVisible = window.scrollY > scrollThreshold;
+        
+        if (shouldBeVisible !== isVisible) {
+            isVisible = shouldBeVisible;
+            if (shouldBeVisible) {
+                scrollToTopBtn.style.display = 'flex';
+                // Force reflow
+                scrollToTopBtn.offsetHeight;
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+                setTimeout(() => {
+                    if (!isVisible) {
+                        scrollToTopBtn.style.display = 'none';
+                    }
+                }, 600); // Match transition duration
+            }
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations
     initHeroAnimations();
@@ -20,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize navigation highlighting
     initNavHighlighting();
+    
+    // Initialize scroll to top
+    initScrollToTop();
     
     // Update current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -285,22 +323,6 @@ function initScrollAnimations() {
                 duration: 0.2,
                 ease: 'back.out(1.7)'
             });
-            
-            // Animate the line at the top
-            gsap.to(card, {
-                '--before-scale': 1,
-                duration: 0.5,
-                ease: 'power2.out'
-            });
-            
-            // Highlight the title
-            const title = card.querySelector('h3');
-            if (title) {
-                gsap.to(title, {
-                    color: 'var(--primary-color)',
-                    duration: 0.3
-                });
-            }
         });
         
         card.addEventListener('mouseleave', () => {
@@ -311,22 +333,6 @@ function initScrollAnimations() {
                 duration: 0.2,
                 ease: 'power2.out'
             });
-            
-            // Animate the line back
-            gsap.to(card, {
-                '--before-scale': 0,
-                duration: 0.5,
-                ease: 'power2.out'
-            });
-            
-            // Return title to original color
-            const title = card.querySelector('h3');
-            if (title) {
-                gsap.to(title, {
-                    color: 'var(--text-color)',
-                    duration: 0.3
-                });
-            }
         });
     });
     
@@ -335,32 +341,7 @@ function initScrollAnimations() {
         card.querySelector('h3').textContent = translations[prefix + '-title'];
         card.querySelector('p').textContent = translations[prefix + '-desc'];
     }
-    
-    // Resume button animation enhancement
-    const resumeButton = document.querySelector('.resume-button');
-    
-    if (resumeButton) {
-        resumeButton.addEventListener('mouseenter', () => {
-            gsap.to(resumeButton, {
-                y: -5,
-                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-                backgroundColor: '#ffb3c1',
-                duration: 0,
-                ease: 'back.out(1.7)'
-            });
-        });
-        
-        resumeButton.addEventListener('mouseleave', () => {
-            gsap.to(resumeButton, {
-                y: 0,
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                backgroundColor: '#ffb3c1',
-                duration: 0.0,
-                ease: 'power2.out'
-            });
-        });
-    }
-    
+
     // Logo animation
     const logo = document.querySelector('.logo');
     
@@ -468,6 +449,7 @@ function initLanguageToggle() {
         'nav-projects': 'Projects',
         'nav-experience': 'Experience',
         'nav-resume': 'Resume',
+        'nav-contact': 'Contact',
         'hero-title': 'Hi! I\'m',
         'hero-role': 'Data Science | NLP | Machine Learning | AI | Linguistics ',
         'hero-description': 'I specialize in Natural Language Processing, and build solutions that understand and generate human language.',
@@ -491,7 +473,7 @@ function initLanguageToggle() {
         'project9-title': 'Image Classification',
         'project9-desc': 'Deep learning model using PyTorch to classify images through transfer learning. By leveraging pre-trained neural networks, it efficiently classifies 102 flower species with optimized training time and improved accuracy.',
         'resume-title': 'Resume',
-        'resume-description': 'Download my resume here.',
+        'resume-description': 'Click here to download my resume.',
         'resume-button': 'Download',
         'footer-text': 'All rights reserved'
     };
@@ -502,6 +484,7 @@ function initLanguageToggle() {
         'nav-projects': 'Projets',
         'nav-experience': 'Expérience',
         'nav-resume': 'CV',
+        'nav-contact': 'Contact',
         'hero-title': 'Bonjour ! Je suis',
         'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique',
         'hero-description': 'Je me spécialise dans le traitement du langage naturel et construis des solutions qui comprennent et génèrent le langage humain.',
@@ -586,6 +569,43 @@ function initLanguageToggle() {
         document.querySelector('nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
         document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-experience'];
         document.querySelector('nav ul li:nth-child(4) a').textContent = translations['nav-resume'];
+        document.querySelector('nav ul li:nth-child(5) a').textContent = translations['nav-contact'];
+
+        // Update descriptions
+        const descriptions = document.querySelectorAll('.contact-description');
+        descriptions.forEach(desc => {
+            if (desc.closest('#projects')) {
+                desc.textContent = currentLanguage === 'en'
+                    ? 'My personal and academic projects.'
+                    : 'Mes projets personnels et académiques.';
+            } else if (desc.closest('#experience')) {
+                desc.textContent = currentLanguage === 'en'
+                    ? 'My academic and professional experience.'
+                    : 'Mon expérience académique et professionnelle.';
+            } else if (desc.closest('#resume')) {
+                desc.textContent = currentLanguage === 'en'
+                    ? 'Click here to download my resume.'
+                    : 'Cliquez pour télécharger mon CV.';
+            } else if (desc.closest('#contact')) {
+                desc.textContent = currentLanguage === 'en'
+                    ? 'Feel free to reach out for collaborations, questions, or just to say hello!'
+                    : 'N\'hésitez pas à me contacter pour des collaborations, des questions ou simplement pour dire bonjour !';
+            }
+        });
+
+        // Update contact form placeholders
+        if (document.getElementById('name')) {
+            document.getElementById('name').placeholder = currentLanguage === 'en' ? 'Name' : 'Nom, Prénom';
+        }
+        if (document.getElementById('email')) {
+            document.getElementById('email').placeholder = 'Email';
+        }
+        if (document.getElementById('message')) {
+            document.getElementById('message').placeholder = 'Message';
+        }
+        if (document.querySelector('.submit-btn')) {
+            document.querySelector('.submit-btn').textContent = currentLanguage === 'en' ? 'Send' : 'Envoyer';
+        }
         
         // Prepare hero section for new typing
         const heroTitle = document.querySelector('#hero h1');
@@ -764,3 +784,72 @@ function initThemeToggle() {
         });
     });
 }
+
+// Handle contact form submission
+function handleSubmit(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    const form = document.getElementById('contactForm');
+    const submitButton = form.querySelector('.submit-btn');
+    const originalButtonText = submitButton.textContent;
+    
+    // Get form data
+    const formData = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        message: document.getElementById('message').value.trim()
+    };
+    
+    // Validate form data
+    if (!formData.name || !formData.email || !formData.message) {
+        return false;
+    }
+    
+    // Disable button and show loading state
+    submitButton.disabled = true;
+    submitButton.textContent = currentLanguage === 'fr' ? 'Envoi...' : 'Sending...';
+    
+    // Send form data to Formspree
+    fetch('https://formspree.io/f/xnnpogqg', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Show success message
+        submitButton.textContent = currentLanguage === 'fr' ? 'Envoyé!' : 'Sent!';
+        form.reset();
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }, 2000);
+    })
+    .catch(error => {
+        // Show error message
+        submitButton.textContent = currentLanguage === 'fr' ? 'Erreur' : 'Error';
+        console.error('Error:', error);
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }, 2000);
+    });
+    
+    return false;
+}
+
+// Initialize form handling when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleSubmit);
+    }
+});

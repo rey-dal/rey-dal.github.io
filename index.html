@@ -43,6 +43,7 @@
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#experience">Experience</a></li>
                         <li><a href="#resume">Resume</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -78,6 +79,7 @@
 
         <section id="projects" class="animate-section">
             <h2 class="animate-item">Projects</h2>
+            <p class="contact-description animate-item" data-en="My personal and academic projects.">My personal and academic projects.</p>
             <div class="projects-grid">
                 <a href="https://github.com/rey-dal/projet_compreve" target="_blank" class="project-card animate-item">
                     <div class="project-content">
@@ -143,6 +145,7 @@
         </section>
         <section id="experience" class="animate-section">
             <h2 class="animate-item">Experience</h2>
+            <p class="contact-description animate-item" data-en="My academic and professional experience.">My academic and professional experience.</p>
             <div class="timeline-container animate-item">
               <div class="timeline">
                 <div class="timeline-line"></div>
@@ -195,13 +198,59 @@
         </section>
         <section id="resume" class="animate-section">
             <h2 class="animate-item">Resume</h2>
-            <p class="animate-item">Download my resume here.</p>
+            <p class="contact-description animate-item" data-en="Click here to download my resume.">Click here to download my resume.</p>
             <a href="https://raw.githubusercontent.com/rey-dal/rey-dal.github.io/main/cv_rd_eng%2Bfr.pdf" class="resume-button animate-item">Download</a>
         </section>
 
-        <footer>
-            <p>&copy; <span id="current-year"></span> Reyhan Dalaman. All rights reserved.</p>
+        <section id="contact" class="animate-section">
+            <h2 class="animate-item">Contact</h2>
+            <p class="contact-description animate-item" data-en="Feel free to reach out for collaborations, questions, or just to say hello!">Feel free to reach out for collaborations, questions, or just to say hello!</p>
+            <div class="contact-form animate-item">
+                <form id="contactForm" action="https://formspree.io/f/xnnpogqg" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required data-en="Name" data-fr="Nom, Prénom" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required data-en="Email" data-fr="Email" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" required data-en="Message" data-fr="Message" placeholder="Message"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-en="Send" data-fr="Envoyer">Send</button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#resume">Resume</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="footer-social">
+                    <a href="https://github.com/rey-dal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/reyhandalaman" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:reyhan.dalaman@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                <p class="copyright">&copy; <span id="current-year"></span> Reyhan Dalaman. All rights reserved.</p>
+                <p class="developed-by"><a href="https://github.com/rey-dal" target="_blank" rel="noopener noreferrer">Developed by rey-dal <i class="fas fa-heart heart-icon"></i></a></p>
+            </div>
         </footer>
+
+        <button id="scroll-to-top" class="scroll-to-top" aria-label="Scroll to top">
+            ↑
+        </button>
     </div>
     <script src="js/script.js"></script>
 </body>
