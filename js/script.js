@@ -77,7 +77,6 @@ function startTypingAnimation() {
     const nameString = 'Reyhan Dalaman';
     
     // Role is different based on language
-    // Fixed: Changed French version to use "IA" instead of "AI"
     const roleString = currentLanguage === 'fr' ? 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique' : 'Data Science | NLP | Machine Learning | AI | Linguistics';
     
     // Start name and role typing simultaneously
@@ -171,127 +170,66 @@ function initScrollAnimations() {
                     
                     // Handle special case for timeline section
                     if (section.id === 'experience') {
-                        // First make the timeline line visible
+                        // Make timeline structure visible immediately
+                        const timeline = section.querySelector('.timeline');
+                        if (timeline) timeline.classList.add('visible');
+                        
+                        // Setup scroll handler for timeline items
+                        const timelineItems = section.querySelectorAll('.timeline-item');
                         const timelineLine = section.querySelector('.timeline-line');
+                        
+                        // Initial setup - timeline line at 0 height
                         if (timelineLine) {
                             timelineLine.style.height = '0';
-                            setTimeout(() => {
-                                // Make the timeline visible first
-                                const timeline = section.querySelector('.timeline');
-                                if (timeline) {
-                                    timeline.classList.add('visible');
-                                }
-                                // Then very slowly increase the height
-                                setTimeout(() => {
-                                    // Start with just 20% height
-                                    timelineLine.style.height = '20%';
-                                    
-                                    // Then gradually increase to 100% over time
-                                    setTimeout(() => {
-                                        timelineLine.style.height = '60%';
-                                        setTimeout(() => {
-                                            timelineLine.style.height = '100%';
-                                        }, 2000);
-                                    }, 2000);
-                                }, 800);
-                            }, 400);
                         }
                         
-                        // Then animate each timeline item with a staggered delay
-                        const timelineItems = section.querySelectorAll('.timeline-item');
-                        timelineItems.forEach((item, index) => {
-                            // Set a custom property for CSS transition-delay
-                            item.style.setProperty('--item-index', index);
-                            setTimeout(() => {
-                                item.classList.add('visible');
-                            }, 1000 + (index * 300)); // Faster appearance for boxes
-                        });
-                        
-                        // Add scroll event listener specifically for timeline items
+                        // Add scroll handler to show items gradually
                         const handleTimelineScroll = () => {
-                            // Check if we've scrolled to the bottom of the section
-                            const sectionBottom = section.getBoundingClientRect().bottom;
                             const windowHeight = window.innerHeight;
-                            const scrolledToBottom = sectionBottom <= windowHeight * 1.2;
+                            let lastVisibleIndex = -1;
                             
-                            // If scrolled to bottom of section, make all items visible and complete the line
-                            if (scrolledToBottom) {
-                                // Make all timeline items visible
-                                timelineItems.forEach(item => {
-                                    item.classList.add('visible');
-                                });
-                                
-                                // Complete the timeline line
-                                const timelineLine = section.querySelector('.timeline-line');
-                                if (timelineLine) {
-                                    timelineLine.style.height = '100%';
-                                    
-                                    // Add visible class to timeline to trigger the gradient animation
-                                    const timeline = section.querySelector('.timeline');
-                                    if (timeline) {
-                                        timeline.classList.add('visible');
-                                    }
-                                }
-                                return; // Skip the rest of the function
-                            }
-                            
-                            // Normal behavior for when not at the bottom
+                            // Check each item's visibility
                             timelineItems.forEach((item, index) => {
-                                const itemTop = item.getBoundingClientRect().top;
-                                const itemBottom = item.getBoundingClientRect().bottom;
+                                const itemRect = item.getBoundingClientRect();
+                                const isVisible = itemRect.top < windowHeight * 0.8 && itemRect.bottom > 0;
                                 
-                                // Check if timeline item is in viewport
-                                if (itemTop < windowHeight * 0.8 && itemBottom > 0) {
+                                if (isVisible) {
                                     item.classList.add('visible');
-                                } else if (itemTop > windowHeight) {
+                                    lastVisibleIndex = index;
+                                } else if (itemRect.top > windowHeight) {
                                     item.classList.remove('visible');
                                 }
                             });
                             
-                            // Update timeline line height based on visible items
-                            const timelineLine = section.querySelector('.timeline-line');
-                            if (timelineLine) {
-                                const visibleItems = Array.from(timelineItems).filter(item => 
-                                    item.classList.contains('visible')).length;
+                            // Update line height based on visible items
+                            if (timelineLine && lastVisibleIndex >= 0) {
+                                const firstDot = section.querySelector('.timeline-dot');
+                                const lastDot = section.querySelector('.timeline-item:last-child .timeline-dot');
+                                
+                                if (firstDot && lastDot) {
+                                    const firstDotRect = firstDot.getBoundingClientRect();
+                                    const lastDotRect = lastDot.getBoundingClientRect();
+                                    const totalHeight = lastDotRect.top - firstDotRect.top;
+                                    const progress = (lastVisibleIndex + 1) / timelineItems.length;
                                     
-                                if (visibleItems > 0) {
-                                    // Calculate height percentage based on visible items
-                                    // Even slower progression - only go to 80% when all items are visible
-                                    const heightPercentage = Math.min(100, (visibleItems / timelineItems.length) * 80);
-                                    timelineLine.style.height = `${heightPercentage}%`;
-                                    
-                                    // Add visible class to timeline to trigger the gradient animation
-                                    const timeline = section.querySelector('.timeline');
-                                    if (timeline) {
-                                        timeline.classList.add('visible');
-                                    }
-                                } else {
-                                    timelineLine.style.height = '0';
-                                    
-                                    // Remove visible class from timeline
-                                    const timeline = section.querySelector('.timeline');
-                                    if (timeline) {
-                                        timeline.classList.remove('visible');
-                                    }
+                                    // Set height based on actual dot positions
+                                    const targetHeight = totalHeight * progress;
+                                    timelineLine.style.height = `${targetHeight}px`;
                                 }
+                            } else {
+                                timelineLine.style.height = '0';
                             }
                         };
                         
-                        // Add scroll event listener
-                        window.addEventListener('scroll', handleTimelineScroll);
-                        // Call once to initialize
+                        // Initial check
                         handleTimelineScroll();
                         
-                        // Other animate items in the section
-                        const otherItems = section.querySelectorAll('.animate-item:not(.timeline-item)');
-                        otherItems.forEach((item, index) => {
-                            setTimeout(() => {
-                                item.classList.add('visible');
-                            }, 200 + (index * 100));
-                        });
-                    } 
+                        // Add scroll listener
+                        window.addEventListener('scroll', handleTimelineScroll);
+                    }
+                    
                     // Handle special case for projects section - slower animation
-                    else if (section.id === 'projects') {
+                    if (section.id === 'projects') {
                         const transitionDelay = 400;
                         
                         // Animate child items with staggered delay
@@ -301,9 +239,8 @@ function initScrollAnimations() {
                                 item.classList.add('visible');
                             }, transitionDelay + (index * 150));
                         });
-                    }
-                    // Default animation for other sections
-                    else {
+                    } else {
+                        // Default animation for other sections
                         const transitionDelay = 200;
                         
                         // Animate child items with staggered delay
@@ -532,7 +469,7 @@ function initLanguageToggle() {
         'nav-experience': 'Experience',
         'nav-resume': 'Resume',
         'hero-title': 'Hi! I\'m',
-        'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique',
+        'hero-role': 'Data Science | NLP | Machine Learning | AI | Linguistics ',
         'hero-description': 'I specialize in Natural Language Processing, and build solutions that understand and generate human language.',
         'projects-title': 'Projects',
         'project1-title': 'Pink AI',
@@ -566,7 +503,7 @@ function initLanguageToggle() {
         'nav-experience': 'Expérience',
         'nav-resume': 'CV',
         'hero-title': 'Bonjour ! Je suis',
-        'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA ',
+        'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique',
         'hero-description': 'Je me spécialise dans le traitement du langage naturel et construis des solutions qui comprennent et génèrent le langage humain.',
         'projects-title': 'Projets',
         'project1-title': 'Pink AI',
