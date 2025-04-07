@@ -10,7 +10,7 @@
     --highlight-color: #ffb3c1;
     --animation-duration: 0.8s;
     --animation-delay-increment: 0.1s;
-    --button-bg: #1e293b;
+    --button-bg: #1e293b
     --button-text: #ffffff;
 }
 
@@ -116,7 +116,6 @@ header {
     align-items: center;
     gap: 0.5rem;
 }
-
 .language-btn, .theme-btn {
     padding: 0.3rem 0.6rem;
     background-color: var(--light-gray);
@@ -124,8 +123,8 @@ header {
     font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    color: inherit;
+    transition: background-color 0.3s ease;
+    color: var(--text-color);
 }
 
 .language-btn:hover, .theme-btn:hover,
