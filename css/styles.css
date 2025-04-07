@@ -125,7 +125,7 @@ header {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    color: var(--text-color);
+    color: inherit;
 }
 
 .language-btn:hover, .theme-btn:hover,
