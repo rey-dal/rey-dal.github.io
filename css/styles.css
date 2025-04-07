@@ -855,7 +855,7 @@ footer::before {
     
     header {
         flex-direction: column;
-        gap: 1rem;
+        gap: 2rem;
     }
     
     nav ul li {
@@ -868,7 +868,7 @@ footer::before {
     }
 }
 
-/* Contact Form Styles */
+/* Contact Form */
 #contact {
     margin-top: 6rem;
     margin-bottom: 6rem;
@@ -970,14 +970,15 @@ footer::before {
 
 .developed-by {
     text-align: center;
-    font-size: 0.9rem;
     margin-top: -1rem;
 }
 
 .developed-by a {
-    color: var(--dark-gray);
+    color: var(--text-color);
     text-decoration: none;
     transition: color 0.3s ease;
+    opacity: 0.8;
+
 }
 
 .developed-by a:hover {
@@ -1017,6 +1018,10 @@ footer::before {
     .copyright {
         font-size: 0.9rem;
     }
+    
+    .developed-by {
+        font-size: 0.7rem;
+    }
 }
 
 .footer-nav a {
@@ -1051,8 +1056,15 @@ footer::before {
     opacity: 0.8;
     text-align: center;
     margin: 0;
+    
 }
 
+.developed-by {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+}
 /* Scroll to top button */
 .scroll-to-top {
     position: fixed;
