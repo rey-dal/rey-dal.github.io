@@ -78,7 +78,7 @@ function startTypingAnimation() {
     
     // Role is different based on language
     // Fixed: Changed French version to use "IA" instead of "AI"
-    const roleString = currentLanguage === 'fr' ? 'Data Science | NLP / TAL | Machine Learning | IA ' : 'Data Science | NLP | Machine Learning | AI ';
+    const roleString = currentLanguage === 'fr' ? 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique' : 'Data Science | NLP | Machine Learning | AI | Linguistics';
     
     // Start name and role typing simultaneously
     typedTextInstance = new Typed('#typed-text', {
@@ -532,7 +532,7 @@ function initLanguageToggle() {
         'nav-experience': 'Experience',
         'nav-resume': 'Resume',
         'hero-title': 'Hi! I\'m',
-        'hero-role': 'Data Science | NLP | Machine Learning | AI ',
+        'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique',
         'hero-description': 'I specialize in Natural Language Processing, and build solutions that understand and generate human language.',
         'projects-title': 'Projects',
         'project1-title': 'Pink AI',
