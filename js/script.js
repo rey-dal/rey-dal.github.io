@@ -497,7 +497,7 @@ function initLanguageToggle() {
         'exp-master1-school': 'Université de Turin, Italie',
         'exp-master1-date': 'Septembre 2023 – Juillet 2024',
         'exp-nlp-title': 'Ingénieure TAL / NLP',
-        'exp-nlp-company': 'LORIA & Steerway, Nancy, France',
+        'exp-nlp-company': 'Steerway & LORIA, Nancy, France',
         'exp-nlp-desc': 'Optimisation des modèles de langue d\'un assistant de codage via la quantification et le pruning.',
         'exp-nlp-date': 'Mars 2025 – Présent',
         'exp-projet-title': 'Projet Pro',
@@ -675,14 +675,14 @@ function initLanguageToggle() {
             // NLP Engineer
             updateExperienceItem(timelineItems[2], {
                 title: currentLanguage === 'en' ? 'NLP Engineer' : translations['exp-nlp-title'],
-                school: currentLanguage === 'en' ? 'LORIA & Steerway, Nancy, France' : translations['exp-nlp-company'],
+                school: currentLanguage === 'en' ? 'Steerway & LORIA, Nancy, France' : translations['exp-nlp-company'],
                 desc: currentLanguage === 'en' ? 'Optimizing a code assistant\'s language models through quantization and pruning.' : translations['exp-nlp-desc'],
                 date: currentLanguage === 'en' ? 'March 2025 - Current' : translations['exp-nlp-date']
             });
             
             // Projet Pro
             updateExperienceItem(timelineItems[3], {
-                title: currentLanguage === 'en' ? 'Projet Pro' : translations['exp-projet-title'],
+                title: currentLanguage === 'en' ? 'Professional Project' : translations['exp-projet-title'],
                 school: currentLanguage === 'en' ? 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France' : translations['exp-projet-company'],
                 desc: currentLanguage === 'en' ? 'Development of a corpus exploration website related to online violence on Twitch.' : translations['exp-projet-desc'],
                 date: currentLanguage === 'en' ? 'December 2024 - March 2025' : translations['exp-projet-date']
