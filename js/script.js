@@ -1,12 +1,12 @@
 // Initialize GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// Global variables for typed instances
+// Global variables
 let typedTextInstance = null;
 let typedRoleInstance = null;
-let currentLanguage = 'en'; // Track current language
-let isTypingInProgress = false; // Track if typing animation is in progress
-let canSwitchLanguage = true; // Flag to control language switching
+let currentLanguage = 'en';
+let isTypingInProgress = false;
+let canSwitchLanguage = true;
 
 // Wait for the DOM to be fully loaded
 // Scroll to top functionality
@@ -219,6 +219,11 @@ function initScrollAnimations() {
                         // Initial setup - timeline line at 0 height
                         if (timelineLine) {
                             timelineLine.style.height = '0';
+                            // Ensure the timeline container has proper z-index for masking
+                            const timelineContainer = section.querySelector('.timeline-container');
+                            if (timelineContainer) {
+                                timelineContainer.style.zIndex = '10';
+                            }
                         }
                         
                         // Add scroll handler to show items gradually
@@ -594,7 +599,7 @@ function initLanguageToggle() {
         const subtitle = document.querySelector('#hero .subtitle');
         if (subtitle) {
             // Set minimum width to prevent content shifting
-            subtitle.style.minWidth = currentLanguage === 'fr' ? '300px' : '300px'; 
+            subtitle.style.minWidth = '300px';
             subtitle.innerHTML = '<span id="typed-role"></span>';
         }
         
@@ -705,10 +710,7 @@ function initLanguageToggle() {
         // Update footer
         document.querySelector('footer p').innerHTML = '&copy; <span id="current-year">' + new Date().getFullYear() + '</span> Reyhan Dalaman. ' + translations['footer-text'] + '.';
         
-        // Start typing animation immediately
-        setTimeout(() => {
-            startTypingAnimation();
-        }, 100);
+        // Typing animation is already started earlier in the function
     }
     
     // Helper function to update project cards
