@@ -981,7 +981,7 @@ footer::before {
 }
 
 .developed-by a:hover {
-    color: var(--primary-color);
+    color: var(--dark-gray);
 }
 
 .heart-icon {
@@ -1027,7 +1027,7 @@ footer::before {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
-    
+    transition: opacity 0.2s ease;
 }
 
 .footer-social {
