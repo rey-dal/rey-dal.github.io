@@ -1112,7 +1112,8 @@ footer::before {
         justify-content: center;
         align-items: center;
         gap: 1.5rem;
-        padding: 1rem 0;
+        padding: 1rem;
+        text-align: center;
     }
 
     .header-right {
@@ -1128,14 +1129,18 @@ footer::before {
         text-align: center;
     }
 
-    nav ul {
+    nav {
+        width: 100%;
         display: flex;
-        flex-wrap: nowrap;
         justify-content: center;
+    }
+
+    nav ul {
+        display: inline-flex;
+        flex-wrap: nowrap;
         gap: 0.9rem;
         margin: 0;
         padding: 0;
-        width: 100%;
     }
 
     nav ul li {
