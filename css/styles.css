@@ -1047,6 +1047,7 @@ footer::before {
         overflow-x: hidden;
         width: 100%;
         position: relative;
+        font-size: 15px;
     }
 
     .container {
@@ -1054,6 +1055,49 @@ footer::before {
         overflow-x: hidden;
     }
 
+    /* Typography Scale */
+    h1, .h1-size { font-size: 1.75rem; }
+    h2, .h2-size { font-size: 1.35rem; }
+    h3, .h3-size { font-size: 1.15rem; }
+    p, .body-text { font-size: 0.95rem; line-height: 1.5; }
+    .small-text { font-size: 0.85rem; }
+
+    /* Section Styles */
+    .animate-section h2 {
+        font-size: 1.35rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.8;
+    }
+
+    /* Card Styles */
+    .project-card h3,
+    .timeline-content h3 {
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .project-card p,
+    .timeline-content p {
+        font-size: 0.95rem;
+    }
+
+    /* Footer */
+    .footer-nav ul li a,
+    .developed-by,
+    .developed-by a {
+        font-size: 0.8rem;
+    }
+
+    .heart-icon {
+        font-size: 0.75rem;
+    }
+
+    /* Header Layout */
     header {
         flex-direction: row;
         flex-wrap: wrap;
@@ -1063,11 +1107,6 @@ footer::before {
         padding: 1rem 0;
     }
 
-    .header-left {
-        order: 2;
-        width: 100%;
-    }
-
     .header-right {
         order: 1;
         display: flex;
@@ -1075,37 +1114,44 @@ footer::before {
         justify-content: center;
     }
 
+    .header-left {
+        order: 2;
+        width: 100%;
+    }
+
     nav ul {
         display: flex;
+        flex-wrap: nowrap;
         justify-content: center;
-        gap: 1.2rem;
+        gap: 0.75rem;
         margin: 0;
         padding: 0;
+        width: 100%;
+    }
+
+    nav ul li {
+        text-align: center;
     }
 
     nav ul li a {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        padding: 0.4rem;
         white-space: nowrap;
     }
 
-    .language-toggle, .theme-toggle {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
+    /* Buttons */
     .language-btn, .theme-btn {
         padding: 0.35rem;
         min-width: 24px;
         min-height: 24px;
-        font-size: 0.7rem;
+        font-size: 0.85rem;
     }
 
     .theme-btn i {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
     }
 
-    /* Hero section mobile styles */
+    /* Hero Section */
     #hero {
         padding: 2rem 0;
         min-height: auto;
@@ -1122,27 +1168,27 @@ footer::before {
         margin-bottom: 1.5rem;
     }
 
-    .hero-content h1 {
-        font-size: 1.6rem;
-        margin-bottom: 0.5rem;
-    }
-
+    .hero-content h1,
     #typed-text {
-        font-size: 1.6rem;
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
     }
 
     #typed-role {
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin-bottom: 1rem;
+        line-height: 1.5;
     }
 
     .description {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         line-height: 1.5;
         margin: 0 auto;
         max-width: 90%;
+        padding-bottom: 2rem;
     }
 
+    /* Utilities */
     .social-links {
         margin-top: 1.5rem;
     }
@@ -1168,8 +1214,68 @@ footer::before {
         padding: 0 1rem;
     }
 
-    footer nav ul li {
+    .footer-content {
+        gap: 1rem;
+    }
+
+    .footer-nav ul {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 0.75rem;
         margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .footer-nav ul li {
+        text-align: center;
+    }
+
+    .footer-nav ul li a {
+        font-size: 0.8rem;
+        padding: 0.4rem;
+        white-space: nowrap;
+    }
+
+    .footer-social .social-links a {
+        font-size: 0.95rem;
+        padding: 0.3rem;
+    }
+
+    .developed-by {
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%;
+        opacity: 0.7;
+        padding: 0.5rem 0;
+    }
+
+    .developed-by a {
+        font-size: 0.7rem;
+    }
+
+    .copyright {
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%;
+        opacity: 0.7;
+    }
+
+    .heart-icon {
+        font-size: 0.7rem;
+    }
+
+    .language-btn,
+    .theme-btn {
+        padding: 0.3rem;
+        min-width: 22px;
+        min-height: 22px;
+        font-size: 0.75rem;
+    }
+
+    .theme-btn i {
+        font-size: 0.75rem;
     }
 }
 
