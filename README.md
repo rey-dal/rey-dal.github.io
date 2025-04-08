@@ -25,7 +25,7 @@ Edit the `index.html` file to replace the placeholder content with your informat
 - Update your name in the hero section
 - Change the description and subtitle to match your skills and experience
 - Update the social media links with your profiles
-- Add your own projects, experience and resume to the projects section
+- Add your own projects, experience and resume.
 - Add your contact information using Formspree
 
 ## Author
