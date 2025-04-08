@@ -1041,6 +1041,14 @@ footer::before {
 
 /* Mobile */
 @media screen and (max-width: 768px) {
+    /* Base Mobile Typography */
+    h1, .h1-size { font-size: 1.75rem; }
+    h2, .h2-size { font-size: 1.35rem; }
+    h3, .h3-size { font-size: 1.15rem; }
+    p, .body-text { font-size: 0.95rem; line-height: 1.5; }
+    .small-text { font-size: 0.85rem; }
+
+    /* Mobile Container */
     html, body {
         touch-action: pan-x pan-y;
         -webkit-touch-callout: none;
@@ -1188,6 +1196,40 @@ footer::before {
         padding-bottom: 2rem;
     }
 
+    /* Mobile Footer */
+    .footer-nav ul li a,
+    .footer-social a {
+        font-size: 0.8rem;
+    }
+
+    .footer-social .social-links a {
+        font-size: 0.95rem;
+        padding: 0.3rem;
+    }
+
+    .developed-by {
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%;
+        opacity: 0.7;
+        padding: 0.5rem 0;
+    }
+
+    .developed-by a {
+        font-size: 0.7rem;
+    }
+
+    .copyright {
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%;
+        opacity: 0.7;
+    }
+
+    .heart-icon {
+        font-size: 0.7rem;
+    }
+
     /* Utilities */
     .social-links {
         margin-top: 1.5rem;
@@ -1284,7 +1326,6 @@ footer::before {
     text-decoration: none;
     transition: color 0.3s ease;
     opacity: 0.8;
-
 }
 
 .developed-by a:hover {
@@ -1294,7 +1335,7 @@ footer::before {
 .heart-icon {
     color: var(--primary-color);
     margin-left: 0.25rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .footer-nav ul {
