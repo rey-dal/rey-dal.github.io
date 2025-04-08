@@ -457,7 +457,8 @@ function initLanguageToggle() {
         'resume-title': 'Resume',
         'resume-description': 'Click here to download my resume.',
         'resume-button': 'Download',
-        'footer-text': 'All rights reserved'
+        'footer-text': 'All rights reserved',
+        'developed-by': 'Developed by rey-dal'
     };
     
     // French translations 
@@ -493,6 +494,7 @@ function initLanguageToggle() {
         'resume-description': 'Cliquez pour télécharger mon CV.',
         'resume-button': 'Télécharger',
         'footer-text': 'Tous droits réservés',
+        'developed-by': 'Développé par rey-dal',
         // Experience section translations
         'exp-master2-title': 'Master 2, Industries de la Langue',
         'exp-master2-school': 'Université Grenoble Alpes, France',
@@ -564,12 +566,19 @@ function initLanguageToggle() {
         // Clean up any existing typing instances
         cleanupTypingInstances();
         
-        // Update navigation texts
-        document.querySelector('nav ul li:nth-child(1) a').textContent = translations['nav-home'];
-        document.querySelector('nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
-        document.querySelector('nav ul li:nth-child(3) a').textContent = translations['nav-experience'];
-        document.querySelector('nav ul li:nth-child(4) a').textContent = translations['nav-resume'];
-        document.querySelector('nav ul li:nth-child(5) a').textContent = translations['nav-contact'];
+        // Update header navigation texts
+        document.querySelector('header nav ul li:nth-child(1) a').textContent = translations['nav-home'];
+        document.querySelector('header nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
+        document.querySelector('header nav ul li:nth-child(3) a').textContent = translations['nav-experience'];
+        document.querySelector('header nav ul li:nth-child(4) a').textContent = translations['nav-resume'];
+        document.querySelector('header nav ul li:nth-child(5) a').textContent = translations['nav-contact'];
+        
+        // Update footer navigation texts
+        document.querySelector('footer nav ul li:nth-child(1) a').textContent = translations['nav-home'];
+        document.querySelector('footer nav ul li:nth-child(2) a').textContent = translations['nav-projects'];
+        document.querySelector('footer nav ul li:nth-child(3) a').textContent = translations['nav-experience'];
+        document.querySelector('footer nav ul li:nth-child(4) a').textContent = translations['nav-resume'];
+        document.querySelector('footer nav ul li:nth-child(5) a').textContent = translations['nav-contact'];
 
         // Update descriptions
         const descriptions = document.querySelectorAll('.contact-description');
@@ -726,7 +735,8 @@ function initLanguageToggle() {
         document.querySelector('#resume .resume-button').textContent = translations['resume-button'];
         
         // Update footer
-        document.querySelector('footer p').innerHTML = '&copy; <span id="current-year">' + new Date().getFullYear() + '</span> Reyhan Dalaman. ' + translations['footer-text'] + '.';
+        document.querySelector('footer .copyright').innerHTML = '&copy; <span id="current-year">' + new Date().getFullYear() + '</span> Reyhan Dalaman. ' + translations['footer-text'] + '.';
+        document.querySelector('footer .developed-by a').innerHTML = translations['developed-by'] + ' <i class="fas fa-heart heart-icon"></i>';
         
         // Typing animation is already started earlier in the function
     }
