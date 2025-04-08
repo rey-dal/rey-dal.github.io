@@ -4,7 +4,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Global variables
 let typedTextInstance = null;
 let typedRoleInstance = null;
-let currentLanguage = 'en';
+let currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
 let isTypingInProgress = false;
 let canSwitchLanguage = true;
 
@@ -515,6 +515,21 @@ function initLanguageToggle() {
         'exp-ai-date': 'Janvier 2024 – Juin 2024'
     };
     
+    // Set active language button based on saved preference
+    languageBtns.forEach(btn => {
+        // First remove active class from all buttons
+        btn.classList.remove('active');
+        // Then add it only to the selected one
+        if (btn.getAttribute('data-lang') === currentLanguage) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Apply saved language on page load
+    if (currentLanguage === 'fr') {
+        updateLanguageContent(frTranslations);
+    }
+    
     languageBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Get language
@@ -528,6 +543,9 @@ function initLanguageToggle() {
             
             // Update current language
             currentLanguage = lang;
+            
+            // Save language preference to localStorage
+            localStorage.setItem('preferredLanguage', lang);
             
             // Update active button display
             languageBtns.forEach(b => {
@@ -747,6 +765,18 @@ function initThemeToggle() {
     const themeBtns = document.querySelectorAll('.theme-btn');
     const htmlElement = document.documentElement;
     
+    // Set active theme button based on saved preference
+    const savedTheme = localStorage.getItem('preferredTheme') || 'light';
+    htmlElement.setAttribute('data-theme', savedTheme);
+    themeBtns.forEach(btn => {
+        // First remove active class from all buttons
+        btn.classList.remove('active');
+        // Then add it only to the selected one
+        if (btn.getAttribute('data-theme') === savedTheme) {
+            btn.classList.add('active');
+        }
+    });
+    
     themeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Remove active class from all buttons
@@ -757,6 +787,9 @@ function initThemeToggle() {
             
             // Get theme
             const theme = btn.getAttribute('data-theme');
+            
+            // Save theme preference to localStorage
+            localStorage.setItem('preferredTheme', theme);
             
             // Update theme
             htmlElement.setAttribute('data-theme', theme);
