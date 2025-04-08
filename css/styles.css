@@ -164,22 +164,13 @@ header {
     border-color: var(--dark-gray);
 }
 
-[data-theme="light"] .theme-btn[data-theme="dark"] {
-    color: var(--dark-gray);
-    opacity: 0.8;
-}
-
 .theme-btn i {
     font-size: 0.85rem;
 }
 
-.theme-btn:hover,
-.theme-btn.active {
-    opacity: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-color: var(--dark-gray);
+.dark-theme-btn {
+    background-color: #e2e8f0;
 }
-
 
 nav ul {
     display: flex;
