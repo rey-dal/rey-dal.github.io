@@ -365,30 +365,7 @@ function initScrollAnimations() {
         });
     }
     
-    // Social links animation enhancement
-    const socialLinks = document.querySelectorAll('.social-links a');
-    
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            gsap.to(link, {
-                y: -5,
-                scale: 1.2,
-                color: '#ffb3c1',
-                duration: 0.5,
-                ease: 'back.out(1.7)'
-            });
-        });
-        
-        link.addEventListener('mouseleave', () => {
-            gsap.to(link, {
-                y: 0,
-                scale: 1,
-                color: '#64748b',
-                duration: 0.5,
-                ease: 'power2.out'
-            });
-        });
-    });
+
 }
 
 // Initialize navigation highlighting based on scroll position
@@ -809,7 +786,7 @@ function handleSubmit(event) {
     
     // Disable button and show loading state
     submitButton.disabled = true;
-    submitButton.textContent = currentLanguage === 'fr' ? 'Envoi...' : 'Sending...';
+    submitButton.textContent = currentLanguage === 'fr' ? 'Envoi en cours... Un instant !' : 'Sending... Please wait !';
     
     // Send form data to Formspree
     fetch('https://formspree.io/f/xnnpogqg', {

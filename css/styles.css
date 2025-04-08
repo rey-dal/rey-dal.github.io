@@ -227,17 +227,18 @@ nav ul li a:hover {
     margin-top: 2rem;
 }
 
-.social-links a {
+#hero .social-links a,
+.footer-social .social-links a {
     font-size: 1.5rem;
     color: var(--dark-gray);
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.2s ease;
 }
 
-.social-links a:hover {
-    color: var(--primary-color);
-    transform: translateY(-3px);
+#hero .social-links a:hover,
+.footer-social .social-links a:hover {
+    opacity: 0.7;
+    color: var(--dark-gray);
 }
-
 
 /* Projects Section */
 #projects {
@@ -513,38 +514,34 @@ nav ul li a:hover {
     text-align: center;
 }
 
-.resume-button {
+#resume a.resume-button {
     display: inline-block;
     padding: 1rem 2rem;
     margin-top: 1rem;
-    background-color: var(--secondary-color);
+    background-color: var(--button-bg);
     color: white;
     border-radius: 5px;
     font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
     font-size: 0.90rem;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-.resume-button:hover {
-    background-color: var(--primary-color);
+#resume a.resume-button:hover {
+    background-color: var(--dark-gray);
     transform: translateY(-3px);
+    color: white;
 }
 
-/* Dark theme overrides */
-[data-theme="dark"] .resume-button {
+[data-theme="dark"] #resume a.resume-button {
     background-color: var(--button-bg);
     color: white;
 }
 
-[data-theme="dark"] .resume-button:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-3px);
-}
-
-[data-theme="light"] .resume-button:hover,
-.resume-button:hover {
-    background-color: var(--primary-color);
+[data-theme="dark"] #resume a.resume-button:hover {
+    background-color: var(--dark-gray);
     color: white;
     transform: translateY(-3px);
 }
@@ -920,11 +917,12 @@ footer::before {
     font-weight: 500;
     cursor: pointer;
     font-size: 0.90rem;
+    opacity: 0.9;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .submit-btn:hover {
-    background-color: var(--primary-color);
+    background-color: var(--dark-gray);
     transform: translateY(-3px);
 }
 
@@ -934,7 +932,7 @@ footer::before {
 }
 
 [data-theme="dark"] .submit-btn:hover {
-    background-color: var(--primary-color);
+    background-color: var(--dark-gray);
     color: white;
 }
 
@@ -1028,14 +1026,13 @@ footer::before {
 }
 
 .footer-social a {
-    color: var(--text-color);
+    color: var(--dark-gray);
     font-size: 1.5rem;
-    transition: all 0.3s ease;
+    transition: opacity 0.2s ease;
 }
 
 .footer-social a:hover {
-    color: var(--primary-color);
-    transform: translateY(-2px);
+    opacity: 0.7;
 }
 
 .copyright {
@@ -1077,14 +1074,24 @@ footer::before {
     transform: translateY(20px);
 }
 
+@media (max-width: 768px) {
+    .scroll-to-top {
+        right: -0.033rem;
+        bottom: 0.5rem;
+        width: 25px;
+        height: 25px;
+        font-size: 0.85rem;
+    }
+}
+
 .scroll-to-top.visible {
     display: flex;
-    opacity: 0.95;
+    opacity: 0.9;
     transform: translateY(0);
 }
 
 .scroll-to-top:hover {
-    background-color: var(--primary-color);
+    background-color: var(--dark-gray);
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
