@@ -1125,6 +1125,7 @@ footer::before {
     .header-left {
         order: 2;
         width: 100%;
+        text-align: center;
     }
 
     nav ul {
