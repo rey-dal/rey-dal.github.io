@@ -1,18 +1,18 @@
 /* Base Styles */
 :root {
-    --primary-color: #ffb3c1;
+    --primary-color: #f9c8fa;
     --secondary-color: #1e293b;
     --background-color: #f8fafc;
     --text-color: #1e293b;
     --light-gray: #e2e8f0;
     --dark-gray: #64748b;
     --card-bg: #ffffff;
-    --highlight-color: #ffb3c1;
+    --highlight-color: #f9c8fa;
     --animation-duration: 0.8s;
     --animation-delay-increment: 0.1s;
     --button-bg: #1e293b;
     --button-text: #ffffff;
-}
+    }
 
 [data-theme="dark"] {
     --background-color: #121212;
@@ -440,14 +440,14 @@ nav ul li a:hover {
 .timeline-item:nth-child(odd) .timeline-content {
     margin-left: auto;
     text-align: left;
-    padding-left: 2.5rem;
-    left: 50%;
+    padding-left: 1rem;
+    left: 40%;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
     text-align: right;
-    padding-right: 2.5rem;
-    right: 50%;
+    padding-right: 1rem;
+    right: 40%;
 }
 
 .timeline-content {
@@ -584,6 +584,9 @@ nav ul li a:hover {
     color: white;
     transform: translateY(-3px);
 }
+
+
+
 #resume p {
     padding-top: 20px; 
     /* or */
@@ -758,14 +761,14 @@ footer::before {
 .timeline-item:nth-child(odd) .timeline-content {
     margin-left: auto;
     text-align: left;
-    padding-left: 2.5rem;
-    left: 50%;
+    padding-left: 1rem;
+    left: 40%;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
     text-align: right;
-    padding-right: 2.5rem;
-    right: 50%;
+    padding-right: 1rem;
+    right: 40%;
 }
 
 .timeline-content {
