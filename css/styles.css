@@ -230,11 +230,6 @@ nav ul li a:hover {
     transition: filter 0.3s ease;
 }
 
-[data-theme="dark"] .profile-photo img {
-    filter: grayscale(100%) contrast(120%);
-    ;
-}
-
 .highlight {
     color: var(--highlight-color);
 }
