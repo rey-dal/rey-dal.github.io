@@ -47,6 +47,8 @@ function initScrollToTop() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations
     initHeroAnimations();
+    
+    // Initialize scroll animations
     initScrollAnimations();
     
     // Initialize language and theme toggles
@@ -58,6 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize scroll to top
     initScrollToTop();
+    
+    // Initialize contact form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleSubmit);
+    }
     
     // Update current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -871,11 +879,3 @@ function handleSubmit(event) {
     
     return false;
 }
-
-// Initialize form handling when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleSubmit);
-    }
-});
