@@ -442,9 +442,7 @@ function initLanguageToggle() {
         'nav-contact': 'Contact',
         'hero-title': 'Hi! I\'m',
         'hero-role': 'Data Science | NLP | Machine Learning | AI | Linguistics ',
-        'hero-description': `I love coding, gaming and lifting weights.
-This description was written by a human. Definitely. Otherwise it would sound way fancier.
-[Insert motivational closer]`,
+        'hero-description': `I turn ideas into code, challenge myself in games and at the gym, and approach life with the same curiosity and drive. Written by a human. Definitely.`,
         'projects-title': 'Projects',
         'project1-title': 'COMPREVE',
         'project1-desc': 'Django-based web application designed for analyzing Twitch chat messages. It provides tools for uploading, searching, filtering, and analyzing chat data.',
@@ -480,9 +478,7 @@ This description was written by a human. Definitely. Otherwise it would sound wa
         'nav-contact': 'Contact',
         'hero-title': 'Bonjour ! Je suis',
         'hero-role': 'Data Science | NLP / TAL | Machine Learning | IA | Linguistique',
-        'hero-description': `J'aime coder, jouer aux jeux vidéo et faire de la musculation.
-Cette description a été écrite par un humain. Définitivement. Sinon, ça sonnerait beaucoup plus sophistiqué.
-[Insérez ici une phrase de conclusion motivante.]`,
+        'hero-description': `Je transforme des idées en code, me challenge dans les jeux et à la salle, et j’aborde la vie avec la même curiosité et énergie. Rédigée par une humaine. Évidemment.`,
         'projects-title': 'Projets',
         'project1-title': 'COMPREVE',
         'project1-desc': 'Application web basée sur Django conçue pour analyser les chats Twitch. Elle fournit des outils pour télécharger, rechercher, filtrer et analyser les données.',
@@ -511,15 +507,19 @@ Cette description a été écrite par un humain. Définitivement. Sinon, ça son
         'exp-master2-title': 'Master 2, Industries de la Langue',
         'exp-master2-school': 'Université Grenoble Alpes, France',
         'exp-master2-desc': 'Formation en traitement automatique des langues (TAL), apprentissage automatique et programmation.',
-        'exp-master2-date': 'Septembre 2024 – Présent',
-        'exp-master1-title': 'Master 1, Technologies des Langues',
+        'exp-master2-date': 'Septembre 2024 – Septembre 2025',
+        'exp-master1-title': 'Master 1, Technologies des langues et humanités numériques',
         'exp-master1-school': 'Université de Turin, Italie',
-        'exp-master1-date': 'Septembre 2023 – Juillet 2024',
+        'exp-master1-date': 'Septembre 2023 – Septembre 2024',
+        'exp-un-title': 'Stagiaire en Gestion des connaissances',
+        'exp-un-company': 'Nations Unies, Haut-Commissaire des Nations Unies aux droits de l\'homme, Genève, Suisse',
+        'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et l’intranet de l’HCDH. Assister dans la recherche, le traitement et la gestion des données et les tâches de la bibliothèque, y compris le catalogage, l’indexation et la numérisation.',
+        'exp-un-date': 'Septembre 2025 - Présent',
         'exp-nlp-title': 'Data Scientist',
         'exp-nlp-company': 'Steerway, Nancy, France',
-        'exp-nlp-desc': 'Développement du pipeline de données d\'un assistant de code, incluant la recherche d\'information, RAG, et l\'optimisation du modèle de langage par pruning et quantification, fine-tuning, avec intégration de l\'analyse, de la visualisation des données et de l\'évaluation.',
-        'exp-nlp-date': 'Mars 2025 – Présent',
-        'exp-projet-title': 'Projet Pro',
+        'exp-nlp-desc': 'Développement du pipeline de données d\’un assistant de code basé sur RAG, incluant la recherche d\’information, fine-tuning, et l\’optimisation du modèle par pruning et quantification. Analyse et évaluation des données, réaliser des analyses statistiques et qualitatives, la création de synthèses visuelles, et le reporting des résultats pour guider les améliorations.',
+        'exp-nlp-date': 'Mars 2025 – Septembre 2025',
+        'exp-projet-title': 'Développeuse full stack',
         'exp-projet-company': 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France',
         'exp-projet-desc': 'Développement d\'un site web basé sur Django pour l\'exploration d\'un corpus sur la violence sur Twitch.',
         'exp-projet-date': 'Décembre 2024 – Mars 2025',
@@ -700,24 +700,31 @@ Cette description a été écrite par un humain. Définitivement. Sinon, ça son
         // Update experience timeline items
         const timelineItems = document.querySelectorAll('#experience .timeline-item');
         if (timelineItems.length >= 5) {
-            // Data Scientist
+            // UN Library and Knowledge Management
             updateExperienceItem(timelineItems[0], {
+                title: currentLanguage === 'en' ? 'Library and Knowledge Management Intern' : translations['exp-un-title'],
+                school: currentLanguage === 'en' ? 'United Nations, Office of the United Nations High Commissioner for Human Rights, Geneva, Switzerland' : translations['exp-un-company'],
+                desc: currentLanguage === 'en' ? 'Developing Human Rights Knowledge Gateway platform and OHCHR intranet. Assisting with research, data processing and management and library operations, including cataloguing, indexing, digitization, and knowledge-sharing activities.' : translations['exp-un-desc'],
+                date: currentLanguage === 'en' ? 'September 2025 - Present' : translations['exp-un-date']
+            });
+            // Data Scientist
+            updateExperienceItem(timelineItems[1], {
                 title: currentLanguage === 'en' ? 'Data Scientist' : translations['exp-nlp-title'],
                 school: currentLanguage === 'en' ? 'Steerway, Nancy, France' : translations['exp-nlp-company'],
-                desc: currentLanguage === 'en' ? 'Developing the data pipeline of a code assistant, including information retrieval, RAG, language model optimization via pruning and quantization, fine tuning, with data analysis, visualization and evaluation integrated.' : translations['exp-nlp-desc'],
-                date: currentLanguage === 'en' ? 'March 2025 - Current' : translations['exp-nlp-date']
+                desc: currentLanguage === 'en' ? 'Developing the data pipeline of a RAG-based code assistant, including information retrieval, fine-tuning, model optimization via pruning and quantization. Analyzing and evaluating data, performing statistical and qualitative analysis, creating visual summaries, and reporting insights to guide improvements.' : translations['exp-nlp-desc'],
+                date: currentLanguage === 'en' ? 'March 2025 - September 2025' : translations['exp-nlp-date']
             });
             
             // Projet Pro
-            updateExperienceItem(timelineItems[1], {
-                title: currentLanguage === 'en' ? 'Professional Project' : translations['exp-projet-title'],
+            updateExperienceItem(timelineItems[2], {
+                title: currentLanguage === 'en' ? 'Full Stack Developer' : translations['exp-projet-title'],
                 school: currentLanguage === 'en' ? 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France' : translations['exp-projet-company'],
                 desc: currentLanguage === 'en' ? 'Development of a Django-based corpus exploration website related to online violence on Twitch.' : translations['exp-projet-desc'],
                 date: currentLanguage === 'en' ? 'December 2024 - March 2025' : translations['exp-projet-date']
             });
             
             // AI & ML Team
-            updateExperienceItem(timelineItems[2], {
+            updateExperienceItem(timelineItems[3], {
                 title: currentLanguage === 'en' ? 'Artificial Intelligence & Machine Learning Team' : translations['exp-ai-title'],
                 school: currentLanguage === 'en' ? 'DiaspUra, Paris, France' : translations['exp-ai-company'],
                 desc: currentLanguage === 'en' ? 'Design, development, and management of a conversational AI solution.' : translations['exp-ai-desc'],
@@ -725,19 +732,19 @@ Cette description a été écrite par un humain. Définitivement. Sinon, ça son
             });
             
             // Master 2
-            updateExperienceItem(timelineItems[3], {
+            updateExperienceItem(timelineItems[4], {
                 title: currentLanguage === 'en' ? 'Master 2, Linguistic Data Sciences' : translations['exp-master2-title'],
                 school: currentLanguage === 'en' ? 'Grenoble Alpes University, France' : translations['exp-master2-school'],
                 desc: currentLanguage === 'en' ? 'Advanced studies in natural language processing (NLP), machine learning, and programming.' : translations['exp-master2-desc'],
-                date: currentLanguage === 'en' ? 'September 2024 - Current' : translations['exp-master2-date']
+                date: currentLanguage === 'en' ? 'September 2024 - September 2025' : translations['exp-master2-date']
             });
             
             // Master 1
-            updateExperienceItem(timelineItems[4], {
-                title: currentLanguage === 'en' ? 'Master 1, Language Technologies' : translations['exp-master1-title'],
+            updateExperienceItem(timelineItems[5], {
+                title: currentLanguage === 'en' ? 'Master 1, Language Technologies and Digital Humanities' : translations['exp-master1-title'],
                 school: currentLanguage === 'en' ? 'University of Turin, Italy' : translations['exp-master1-school'],
                 desc: currentLanguage === 'en' ? 'Formation in natural language processing (NLP), machine learning, and programming.' : translations['exp-master1-desc'],
-                date: currentLanguage === 'en' ? 'September 2023 - July 2024' : translations['exp-master1-date']
+                date: currentLanguage === 'en' ? 'September 2023 - September 2024' : translations['exp-master1-date']
             });
         }
 
