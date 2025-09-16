@@ -1,13 +1,13 @@
 /* Base Styles */
 :root {
-    --primary-color: #f9c8fa;
+    --primary-color: #8e084bd7;
     --secondary-color: #1e293b;
     --background-color: #f8fafc;
     --text-color: #1e293b;
     --light-gray: #e2e8f0;
     --dark-gray: #64748b;
     --card-bg: #ffffff;
-    --highlight-color: #f9c8fa;
+    --highlight-color: #8e084bd7;
     --animation-duration: 0.8s;
     --animation-delay-increment: 0.1s;
     --button-bg: #1e293b;
