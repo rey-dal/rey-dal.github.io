@@ -511,8 +511,8 @@ function initLanguageToggle() {
         'exp-master1-title': 'Master 1, Technologies des langues et humanités numériques',
         'exp-master1-school': 'Université de Turin, Italie',
         'exp-master1-date': 'Septembre 2023 – Septembre 2024',
-        'exp-un-title': 'Stagiaire en Gestion des connaissances',
-        'exp-un-company': 'Nations Unies, Haut-Commissaire des Nations Unies aux droits de l\'homme, Genève, Suisse',
+        'exp-un-title': 'Stagiaire en Bibliothèque et gestion des connaissances',
+        'exp-un-company': 'Nations Unies, Haut-Commissaire des Nations Unies aux droits de l\'homme (HCDH), Genève, Suisse',
         'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et de l\’intranet de l\’HCDH. Recherche, traitement et gestion des données ; extraction, analyse et structuration des informations ; et réalisation des opérations de la bibliothèque, y compris le catalogage, l\’indexation, la numérisation et le partage des connaissances.',
         'exp-un-date': 'Septembre 2025 - Présent',
         'exp-nlp-title': 'Data Scientist',
@@ -703,7 +703,7 @@ function initLanguageToggle() {
             // UN Library and Knowledge Management
             updateExperienceItem(timelineItems[0], {
                 title: currentLanguage === 'en' ? 'Library and Knowledge Management Intern' : translations['exp-un-title'],
-                school: currentLanguage === 'en' ? 'United Nations, Office of the United Nations High Commissioner for Human Rights, Geneva, Switzerland' : translations['exp-un-company'],
+                school: currentLanguage === 'en' ? 'United Nations, Office of the United Nations High Commissioner for Human Rights (OHCHR), Geneva, Switzerland' : translations['exp-un-company'],
                 desc: currentLanguage === 'en' ? 'Developing the Human Rights Knowledge Gateway platform and OHCHR intranet. Conducting research, data processing and management; extracting, analyzing, and structuring information; and performing library operations, including cataloguing, indexing, digitization, and knowledge-sharing activities.' : translations['exp-un-desc'],
                 date: currentLanguage === 'en' ? 'September 2025 - Present' : translations['exp-un-date']
             });
