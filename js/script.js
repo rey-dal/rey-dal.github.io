@@ -511,9 +511,9 @@ function initLanguageToggle() {
         'exp-master1-title': 'Master 1, Technologies des langues et humanités numériques',
         'exp-master1-school': 'Université de Turin, Italie',
         'exp-master1-date': 'Septembre 2023 – Septembre 2024',
-        'exp-un-title': 'Stagiaire en Bibliothèque et gestion des connaissances',
-        'exp-un-company': 'Nations Unies, Haut-Commissariat aux droits de l\'homme (HCDH), Genève, Suisse',
-        'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et de l\’intranet du HCDH. Recherche, gestion, traitement, analyse et visualisation des données ; extraction et structuration de l\’information ; et optimisation des opérations, y compris les flux de travail automatisés, le catalogage, l\’indexation, la numérisation et les activités de partage des connaissances.',
+        'exp-un-title': 'Stagiaire au Haut-Commissariat aux droits de l\'homme (HCDH)',
+        'exp-un-company': 'Nations Unies, Division opérations mondiales, Genève, Suisse',
+        'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et de l\’intranet du HCDH, en mettant en œuvre des flux de travail et des automatisations axés sur les données pour la recherche, le traitement, l\’analyse et la visualisation ; extraction et structuration de l\’information ; optimisation des opérations de gestion des connaissances et les systèmes de partage d\’informations ; et coordination des sessions.',
         'exp-un-date': 'Septembre 2025 - Présent',
         'exp-nlp-title': 'Data Scientist',
         'exp-nlp-company': 'Steerway, Nancy, France',
@@ -521,7 +521,7 @@ function initLanguageToggle() {
         'exp-nlp-date': 'Mars 2025 – Septembre 2025',
         'exp-projet-title': 'Développeuse full stack',
         'exp-projet-company': 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France',
-        'exp-projet-desc': 'Développement d\'un site web basé sur Django pour l\'exploration d\'un corpus sur la violence sur Twitch.',
+        'exp-projet-desc': 'Développement d\’un site web basé sur Django pour l\’exploration et l\’analyse de la violence en ligne sur Twitch.',
         'exp-projet-date': 'Décembre 2024 – Mars 2025',
         'exp-ai-title': 'Intelligence Artificielle & Machine Learning Team',
         'exp-ai-company': 'DiaspUra, Paris, France',
@@ -702,9 +702,9 @@ function initLanguageToggle() {
         if (timelineItems.length >= 5) {
             // UN Library and Knowledge Management
             updateExperienceItem(timelineItems[0], {
-                title: currentLanguage === 'en' ? 'Library and Knowledge Management Intern' : translations['exp-un-title'],
-                school: currentLanguage === 'en' ? 'United Nations, Office of the High Comnmissioner for Human Rights (OHCHR), Geneva, Switzerland' : translations['exp-un-company'],
-                desc: currentLanguage === 'en' ? 'Developing the Human Rights Knowledge Gateway platform and OHCHR intranet. Conducting research, data management, processing, analysis, and visualization; extracting and structuring information; and optimizing knowledge management operations, including automated workflows, cataloguing, indexing, digitization, and knowledge-sharing activities.' : translations['exp-un-desc'],
+                title: currentLanguage === 'en' ? ' Office of the High Comnmissioner for Human Rights (OHCHR) Intern' : translations['exp-un-title'],
+                school: currentLanguage === 'en' ? 'United Nations, Global Operations Division, Geneva, Switzerland' : translations['exp-un-company'],
+                desc: currentLanguage === 'en' ? 'Developing the Human Rights Knowledge Gateway platform and OHCHR intranet by implementing data-driven workflows and automation for research, processing, analysis, and visualization; extracting and structuring information; optimizing knowledge management operations and information-sharing systems; and supporting coordination of sessions.' : translations['exp-un-desc'],
                 date: currentLanguage === 'en' ? 'September 2025 - Present' : translations['exp-un-date']
             });
             // Data Scientist
@@ -719,7 +719,7 @@ function initLanguageToggle() {
             updateExperienceItem(timelineItems[2], {
                 title: currentLanguage === 'en' ? 'Full Stack Developer' : translations['exp-projet-title'],
                 school: currentLanguage === 'en' ? 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France' : translations['exp-projet-company'],
-                desc: currentLanguage === 'en' ? 'Development of a Django-based corpus exploration website related to online violence on Twitch.' : translations['exp-projet-desc'],
+                desc: currentLanguage === 'en' ? 'Development of a Django-based corpus exploration website for analyzing online violence on Twitch.' : translations['exp-projet-desc'],
                 date: currentLanguage === 'en' ? 'December 2024 - March 2025' : translations['exp-projet-date']
             });
             
