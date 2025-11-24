@@ -515,6 +515,10 @@ function initLanguageToggle() {
         'exp-un-company': 'Nations Unies, Division opérations mondiales, Genève, Suisse',
         'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et de l\’intranet du HCDH, en mettant en œuvre des flux de travail et des automatisations axés sur les données pour la recherche, le traitement, l\’analyse et la visualisation ; extraction et structuration de l\’information ; optimisation des opérations de gestion des connaissances et les systèmes de partage d\’informations ; et coordination des sessions.',
         'exp-un-date': 'Septembre 2025 - Présent',
+        'exp-undp-title': 'Data Scientist (ML/NLP)',
+        'exp-undp-company': 'Programme des Nations Unies pour le développement (PNUD)',
+        'exp-undp-desc': 'Développement d\’un pipeline TAL/NLP pour des enregistrements audio et vidéo multilingues, incluant transcription automatique, détection de langue, traduction, extraction de mots-clés, analyse de données, et application de méthodes d\’apprentissage automatique pour classifier et découvrir des thèmes.',
+        'exp-undp-date': 'Novembre 2025 - Présent',
         'exp-nlp-title': 'Data Scientist',
         'exp-nlp-company': 'Steerway, Nancy, France',
         'exp-nlp-desc': 'Développement du pipeline de données d\’un assistant de code basé sur RAG, incluant la recherche d\’information, fine-tuning, et l\’optimisation du modèle par pruning et quantification. Analyse et évaluation des données, réaliser des analyses statistiques et qualitatives, la création de synthèses visuelles, et le reporting des résultats pour guider les améliorations.',
@@ -699,16 +703,25 @@ function initLanguageToggle() {
         
         // Update experience timeline items
         const timelineItems = document.querySelectorAll('#experience .timeline-item');
-        if (timelineItems.length >= 5) {
-            // UN Library and Knowledge Management
+        if (timelineItems.length >= 1) {
+            // UN OHCHR
             updateExperienceItem(timelineItems[0], {
                 title: currentLanguage === 'en' ? ' Office of the High Comnmissioner for Human Rights (OHCHR) Intern' : translations['exp-un-title'],
                 school: currentLanguage === 'en' ? 'United Nations, Global Operations Division, Geneva, Switzerland' : translations['exp-un-company'],
                 desc: currentLanguage === 'en' ? 'Developing the Human Rights Knowledge Gateway platform and OHCHR intranet by implementing data-driven workflows and automation for research, processing, analysis, and visualization; extracting and structuring information; optimizing knowledge management operations and information-sharing systems; and supporting coordination of sessions.' : translations['exp-un-desc'],
                 date: currentLanguage === 'en' ? 'September 2025 - Present' : translations['exp-un-date']
             });
-            // Data Scientist
+
+            // UNDP
             updateExperienceItem(timelineItems[1], {
+                title: currentLanguage === 'en' ? ' Data Scientist (ML/NLP)' : translations['exp-undp-title'],
+                school: currentLanguage === 'en' ? 'United Nations, Global Operations Division, Geneva, Switzerland' : translations['exp-undp-company'],
+                desc: currentLanguage === 'en' ? 'Developing an NLP pipeline for multilingual audio and video recordings, including speech-to-text transcription, language detection, translation, and keyword extraction, performing analysis and applying machine learning methods to classify and discover themes.' : translations['exp-undp-desc'],
+                date: currentLanguage === 'en' ? 'November 2025 - Present' : translations['exp-undp-date']
+            });
+
+            // Data Scientist
+            updateExperienceItem(timelineItems[2], {
                 title: currentLanguage === 'en' ? 'Data Scientist' : translations['exp-nlp-title'],
                 school: currentLanguage === 'en' ? 'Steerway, Nancy, France' : translations['exp-nlp-company'],
                 desc: currentLanguage === 'en' ? 'Developing the data pipeline of a RAG-based code assistant, including information retrieval, fine-tuning, model optimization via pruning and quantization. Analyzing and evaluating data, performing statistical and qualitative analysis, creating visual summaries, and reporting insights to guide improvements.' : translations['exp-nlp-desc'],
@@ -716,7 +729,7 @@ function initLanguageToggle() {
             });
             
             // Projet Pro
-            updateExperienceItem(timelineItems[2], {
+            updateExperienceItem(timelineItems[3], {
                 title: currentLanguage === 'en' ? 'Full Stack Developer' : translations['exp-projet-title'],
                 school: currentLanguage === 'en' ? 'UR ReSO, Université de Montpellier Paul-Valéry, Montpellier, France' : translations['exp-projet-company'],
                 desc: currentLanguage === 'en' ? 'Development of a Django-based corpus exploration website for analyzing online violence on Twitch.' : translations['exp-projet-desc'],
@@ -724,7 +737,7 @@ function initLanguageToggle() {
             });
             
             // AI & ML Team
-            updateExperienceItem(timelineItems[3], {
+            updateExperienceItem(timelineItems[4], {
                 title: currentLanguage === 'en' ? 'Artificial Intelligence & Machine Learning Team' : translations['exp-ai-title'],
                 school: currentLanguage === 'en' ? 'DiaspUra, Paris, France' : translations['exp-ai-company'],
                 desc: currentLanguage === 'en' ? 'Design, development, and management of a conversational AI solution.' : translations['exp-ai-desc'],
@@ -732,7 +745,7 @@ function initLanguageToggle() {
             });
             
             // Master 2
-            updateExperienceItem(timelineItems[4], {
+            updateExperienceItem(timelineItems[5], {
                 title: currentLanguage === 'en' ? 'Master 2, Linguistic Data Sciences' : translations['exp-master2-title'],
                 school: currentLanguage === 'en' ? 'Grenoble Alpes University, France' : translations['exp-master2-school'],
                 desc: currentLanguage === 'en' ? 'Advanced studies in natural language processing (NLP), machine learning, and programming.' : translations['exp-master2-desc'],
@@ -740,7 +753,7 @@ function initLanguageToggle() {
             });
             
             // Master 1
-            updateExperienceItem(timelineItems[5], {
+            updateExperienceItem(timelineItems[6], {
                 title: currentLanguage === 'en' ? 'Master 1, Language Technologies and Digital Humanities' : translations['exp-master1-title'],
                 school: currentLanguage === 'en' ? 'University of Turin, Italy' : translations['exp-master1-school'],
                 desc: currentLanguage === 'en' ? 'Formation in natural language processing (NLP), machine learning, and programming.' : translations['exp-master1-desc'],
