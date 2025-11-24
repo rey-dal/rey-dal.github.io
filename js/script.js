@@ -715,7 +715,7 @@ function initLanguageToggle() {
             // UNDP
             updateExperienceItem(timelineItems[1], {
                 title: currentLanguage === 'en' ? ' Data Scientist (ML/NLP)' : translations['exp-undp-title'],
-                school: currentLanguage === 'en' ? 'United Nations, Global Operations Division, Geneva, Switzerland' : translations['exp-undp-company'],
+                school: currentLanguage === 'en' ? 'United Nations Development Programme (UNDP)' : translations['exp-undp-company'],
                 desc: currentLanguage === 'en' ? 'Developing an NLP pipeline for multilingual audio and video recordings, including speech-to-text transcription, language detection, translation, and keyword extraction, performing analysis and applying machine learning methods to classify and discover themes.' : translations['exp-undp-desc'],
                 date: currentLanguage === 'en' ? 'November 2025 - Present' : translations['exp-undp-date']
             });
