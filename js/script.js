@@ -513,7 +513,7 @@ function initLanguageToggle() {
         'exp-master1-date': 'Septembre 2023 – Septembre 2024',
         'exp-un-title': 'Stagiaire au Haut-Commissariat aux droits de l\'homme (HCDH)',
         'exp-un-company': 'Nations Unies, Division opérations mondiales, Genève, Suisse',
-        'exp-un-desc': 'Développement de la plateforme Human Rights Knowledge Gateway et de l\’intranet du HCDH, en mettant en œuvre des flux de travail et des automatisations axés sur les données pour la recherche, le traitement, l\’analyse et la visualisation ; extraction et structuration de l\’information ; optimisation des opérations de gestion des connaissances et les systèmes de partage d\’informations ; et coordination des sessions.',
+        'exp-un-desc': 'Transformation d\’informations non structurées sur les droits humains en données structurées et exploitables par la conception et la mise en œuvre de flux de travail basés sur les données, automatisation des processus de recherche, traitement, analyse et visualisation, optimisation des systèmes et coordination des sessions.',
         'exp-un-date': 'Septembre 2025 - Présent',
         'exp-undp-title': 'Data Scientist (ML/NLP)',
         'exp-undp-company': 'Programme des Nations Unies pour le développement (PNUD)',
@@ -708,7 +708,7 @@ function initLanguageToggle() {
             updateExperienceItem(timelineItems[0], {
                 title: currentLanguage === 'en' ? ' Office of the High Comnmissioner for Human Rights (OHCHR) Intern' : translations['exp-un-title'],
                 school: currentLanguage === 'en' ? 'United Nations, Global Operations Division, Geneva, Switzerland' : translations['exp-un-company'],
-                desc: currentLanguage === 'en' ? 'Developing the Human Rights Knowledge Gateway platform and OHCHR intranet by implementing data-driven workflows and automation for research, processing, analysis, and visualization; extracting and structuring information; optimizing knowledge management operations and information-sharing systems; and supporting coordination of sessions.' : translations['exp-un-desc'],
+                desc: currentLanguage === 'en' ? 'Transforming unstructured human rights information into structured, actionable data by designing and implementing data-driven workflows, automating processes for research, analysis, and visualization, optimizing information-sharing systems, and supporting coordination of sessions.' : translations['exp-un-desc'],
                 date: currentLanguage === 'en' ? 'September 2025 - Present' : translations['exp-un-date']
             });
 
